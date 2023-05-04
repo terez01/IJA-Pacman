@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
 public class GameController {
+    /*test comment for commit*/
     @FXML
     private Label welcomeText;
 
