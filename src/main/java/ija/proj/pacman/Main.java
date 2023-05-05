@@ -1,5 +1,7 @@
 package ija.proj.pacman;
 
+import ija.proj.pacman.common.Maze;
+
 import ija.proj.pacman.game.Logger;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -48,10 +50,10 @@ public class Main extends Application {
 
         Logger log = new Logger();
         //load the map
-        log.LoadMap();
+        Maze maze = log.LoadMap();
         //first log
-        log.LogMap();
+        log.LogMap(maze);
         //second log
-        log.LogMap();
+        log.LogMap(maze);
     }
 }

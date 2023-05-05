@@ -17,12 +17,19 @@ import java.util.Scanner;
 public class Logger {
     Maze logMaze = null;
     int iterationNum = 0;
-    public void LoadMap() throws FileNotFoundException {
+
+    /**
+     * Function rewrites the previous log file to an empty file, loads the map from the txt file and returns the Maze itself and
+     * @return
+     * @throws FileNotFoundException
+     */
+    public Maze LoadMap() throws FileNotFoundException {
+
+        LogDelete();    //deletes the previous log
+
         File file = new File("data/map01.txt");   //path to the map
 
         Scanner scan = new Scanner(file);
-
-        String fileContent = "";    //string storing the file
 
         MazeConfigure cfg = new MazeConfigure();
         String line = scan.nextLine();
@@ -44,10 +51,14 @@ public class Logger {
         // save the maze to logMaze
         logMaze = tmpmaze;
 
-        //TODO rewrite the log to an empty file
+        return tmpmaze;
     }
 
-    public void LogMap(){
+    /**
+     * Function logs the maze and its iteration number to the log.txt file
+     * @param maze
+     */
+    public void LogMap(Maze maze){
         iterationNum++;
 
         String iterNumStr = Integer.toString(iterationNum); //integer to string for logging
@@ -64,11 +75,47 @@ public class Logger {
             System.err.println("IOException:" + ioe.getMessage());
         }
 
-        //print maze line by line
-
-
-
+        //print the maze line by line to the log
+        for (int i = 0; i < maze.numRows(); i++){
+            for (int j = 0; j < maze.numCols(); j++){
+                Character tmpField = maze.getField(i,j).getAscii();
+                //print the Ascii symbol of the field
+                try{
+                    FileWriter fw = new FileWriter(filename, true); //true flag will append the new data
+                    fw.write(tmpField); //string to be appended
+                    fw.close();
+                }
+                catch (IOException ioe){
+                    System.err.println("IOException:" + ioe.getMessage());
+                }
+            }
+            //print the newline when you printed all the columns
+            try{
+                FileWriter fw = new FileWriter(filename, true); //true flag will append the new data
+                fw.write("\n");
+                fw.close();
+            }
+            catch (IOException ioe){
+                System.err.println("IOException:" + ioe.getMessage());
+            }
+        }
 
     }
 
+    /**
+     * Function deletes the log
+     */
+    public void LogDelete(){
+        String filename = "data/log.txt";
+
+        //rewrite the log to an empty line
+        try{
+            FileWriter fw = new FileWriter(filename); //true flag will append the new data
+            fw.write(""); //writes an empty string
+            fw.close();
+        }
+        catch (IOException ioe){
+            System.err.println("IOException:" + ioe.getMessage());
+        }
+    }
 }
