@@ -1,8 +1,8 @@
-module com.example.ijapacman {
+module ija.proj.pacman {
     requires javafx.controls;
     requires javafx.fxml;
 
 
-    opens com.example.ijapacman to javafx.fxml;
-    exports com.example.ijapacman;
+    opens ija.proj.pacman to javafx.fxml;
+    exports ija.proj.pacman;
 }
