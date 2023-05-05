@@ -5,7 +5,6 @@
 package ija.proj.pacman.game;
 
 import ija.proj.pacman.common.Field;
-import ija.proj.pacman.common.IDrawable;
 import ija.proj.pacman.common.Maze;
 
 import java.util.List;

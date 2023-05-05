@@ -6,7 +6,6 @@ package ija.proj.pacman.game;
 
 import ija.proj.pacman.GameView;
 import ija.proj.pacman.common.Field;
-import ija.proj.pacman.common.IDrawable;
 import ija.proj.pacman.common.Maze;
 import ija.proj.pacman.common.MazeObject;
 import javafx.scene.image.Image;

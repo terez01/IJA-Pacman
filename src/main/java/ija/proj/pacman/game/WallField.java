@@ -6,13 +6,12 @@ package ija.proj.pacman.game;
 
 import ija.proj.pacman.GameView;
 import ija.proj.pacman.common.Field;
-import ija.proj.pacman.common.IDrawable;
 import ija.proj.pacman.common.Maze;
 import ija.proj.pacman.common.MazeObject;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class WallField implements Field, IDrawable {
+public class WallField implements Field {
     Maze maze=null;
     int row;
     int col;
