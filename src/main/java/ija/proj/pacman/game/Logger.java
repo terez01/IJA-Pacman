@@ -20,46 +20,6 @@ public class Logger {
     int iterationNum = 0;
 
     /**
-     * Function rewrites the previous log file to an empty file, loads the map from the txt file and returns the Maze itself and
-     * @return
-     * @throws FileNotFoundException
-     */
-    public Maze LoadMap() throws FileNotFoundException {
-
-        LogDelete();    //deletes the previous log
-
-        File file = new File("data/map01.txt");   //path to the map
-
-        Scanner scan = new Scanner(file);
-
-        MazeConfigure cfg = new MazeConfigure();
-        String line = scan.nextLine();
-        String[] parts = line.split(" ");
-        int num1 = Integer.parseInt(parts[0]);
-        int num2 = Integer.parseInt(parts[1]);
-
-        //print the dimensions to the log file
-        LogDimensions(num1, num2);
-
-        cfg.startReading(num1, num2);
-        while(scan.hasNextLine()){
-            cfg.processLine(scan.nextLine());
-        }
-
-        cfg.stopReading();
-
-        Maze tmpmaze = cfg.createMaze();
-        CommonMaze maze = (CommonMaze) tmpmaze;
-        /*TODO DELETE later ... now only used for debugging*/
-        maze.printMaze();
-
-        // save the maze to logMaze
-        logMaze = tmpmaze;
-
-        return tmpmaze;
-    }
-
-    /**
      * Function logs the maze and its iteration number to the log.txt file
      * @param maze
      */

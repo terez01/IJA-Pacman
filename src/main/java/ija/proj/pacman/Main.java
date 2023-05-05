@@ -17,13 +17,21 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Main extends Application {
+//    Maze maze;
+Logger log = new Logger();
     @Override
     public void start(Stage stage) throws IOException {
         GameView gameView = GameView.getInstance();
         gameView.createGrid();
-        MazeConfigure cfg = new MazeConfigure();
 
+        MazeConfigure cfg = new MazeConfigure();
         CommonMaze maze = cfg.loadMazeFromFile("data/map01.txt");
+
+        /*first log*/
+        log.LogMap(maze);
+        //second log
+        log.LogMap(maze);
+
         maze.redraw();
 
         GameController controller = new GameController();
@@ -62,22 +70,6 @@ public class Main extends Application {
     public static void main(String[] args) throws FileNotFoundException {
 
         launch();
-//        LoadMapTest test = new LoadMapTest();
-//        test.LoadMapTest01();
-
-        Logger log = new Logger();
-        //load the map
-        Maze maze = log.LoadMap();
-        //first log
-        log.LogMap(maze);
-        //second log
-        log.LogMap(maze);
-
-        Maze tmpMaze = log.LoadLogMap(1);
-        if (tmpMaze != null) {
-            CommonMaze comMaze = (CommonMaze) tmpMaze;
-            comMaze.printMaze();
-        }
     }
 
 }

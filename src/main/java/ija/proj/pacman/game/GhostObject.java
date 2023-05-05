@@ -32,6 +32,12 @@ public class GhostObject implements MazeObject{
     public boolean move(Field.Direction dir) {
         return false;
     }
+
+    @Override
+    public boolean isPacman() {
+        return false;
+    }
+
     public char getAscii(){
         return 'G';
     }

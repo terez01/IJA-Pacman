@@ -55,6 +55,12 @@ public class PacmanObject implements MazeObject {
             return false;
         }
     }
+
+    @Override
+    public boolean isPacman() {
+        return true;
+    }
+
     public char getAscii(){
         return 'S';
     }

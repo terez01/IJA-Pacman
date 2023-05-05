@@ -5,12 +5,14 @@
 package ija.proj.pacman.game;
 
 import ija.proj.pacman.common.Maze;
+import ija.proj.pacman.game.Logger;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+
 
 public class MazeConfigure {
     List<Character> charList;
@@ -22,6 +24,7 @@ public class MazeConfigure {
     public MazeConfigure() {
         charList = new LinkedList<Character>();
     }
+    Logger log = new Logger();
 
     /**
      * Function creates and returns the maze, if the maze was correctly given, otherwise return null
@@ -100,7 +103,13 @@ public class MazeConfigure {
             return true;
         }
     }
+    /**
+     * Function loads the maze, deletes previous log file and prints the dimensions of the maze to the log file
+     */
     public CommonMaze loadMazeFromFile(String filePath) throws FileNotFoundException {
+
+        log.LogDelete();    //deletes the previous log
+
         File file = new File(filePath);   //path to the map
 
         Scanner scan = new Scanner(file);
@@ -112,6 +121,8 @@ public class MazeConfigure {
         String[] parts = line.split(" ");
         int num1 = Integer.parseInt(parts[0]);
         int num2 = Integer.parseInt(parts[1]);
+
+        log.LogDimensions(num1,num2);
 
         cfg.startReading(num1, num2);
         while(scan.hasNextLine()){
