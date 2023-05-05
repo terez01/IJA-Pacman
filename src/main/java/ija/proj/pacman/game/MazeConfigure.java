@@ -12,7 +12,7 @@ import java.util.List;
 public class MazeConfigure {
     List<Character> charList;
     int rows = 0;
-    int cols = 0;   //probably not gonna be used
+    int cols = 0;   //!probably not gonna be used
     int expectedRows;
     int expectedCols;
     boolean mazeOk=true;
@@ -24,13 +24,13 @@ public class MazeConfigure {
      * Function creates and returns the maze, if the maze was correctly given, otherwise return null
       * @return
      */
-//    public Maze createMaze(){
-//        if (mazeOk){
-//            return new MyMaze();
-//        } else {
-//            return null;
-//        }
-//    }
+    public Maze createMaze(){
+        if (mazeOk){
+            return new CommonMaze(rows+2, expectedCols+2, charList);
+        } else {
+            return null;
+        }
+    }
 
     /**
      * Function reads one line, controls the validity (The Maze must be Rectangular), and adds the left & right padding to the Maze. If the input was valid, returns true, false otherwise.
