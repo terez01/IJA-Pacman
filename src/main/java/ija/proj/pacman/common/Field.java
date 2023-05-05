@@ -16,4 +16,5 @@ public interface Field {
     boolean remove(MazeObject object);
     void setMaze(Maze maze);
     char getAscii();
+    void draw();
 }

@@ -1,9 +1,9 @@
 package ija.proj.pacman;
 
 import ija.proj.pacman.common.Maze;
-
 import ija.proj.pacman.game.CommonMaze;
 import ija.proj.pacman.game.Logger;
+import ija.proj.pacman.game.MazeConfigure;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -19,6 +19,13 @@ import java.io.IOException;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        GameView gameView = GameView.getInstance();
+        gameView.createGrid();
+        MazeConfigure cfg = new MazeConfigure();
+
+        CommonMaze maze = cfg.loadMazeFromFile("data/map01.txt");
+        maze.redraw();
+
         BorderPane layout = new BorderPane();
 
         MenuBar menu = new MenuBar();
@@ -38,13 +45,15 @@ public class Main extends Application {
         map.getItems().addAll(item1, item2, item3);
 
         layout.setTop(menu);
-        Scene scene = new Scene(layout, 320, 240);
+        layout.setCenter(gameView);
+        Scene scene = new Scene(layout, 300, 300);
         stage.setTitle("Pac-Man");
         stage.setScene(scene);
         stage.show();
     }
 
     public static void main(String[] args) throws FileNotFoundException {
+
         launch();
 //        LoadMapTest test = new LoadMapTest();
 //        test.LoadMapTest01();

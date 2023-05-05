@@ -4,17 +4,23 @@
  */
 package ija.proj.pacman.game;
 
+import ija.proj.pacman.GameView;
 import ija.proj.pacman.common.Field;
+import ija.proj.pacman.common.IDrawable;
 import ija.proj.pacman.common.Maze;
 import ija.proj.pacman.common.MazeObject;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class WallField implements Field{
+public class WallField implements Field, IDrawable {
     Maze maze=null;
     int row;
     int col;
+    Image wallImage;
     public WallField(int row, int col){
         this.row = row;
         this.col = col;
+        this.wallImage = new Image("file:lib/img/wall.png");
     }
     @Override
     public boolean canMove() {
@@ -65,5 +71,9 @@ public class WallField implements Field{
     }
     public char getAscii(){
         return ('X');
+    }
+    public void draw(){
+        ImageView imageView = GameView.getInstance().getImageView(row, col);
+        imageView.setImage(this.wallImage);
     }
 }

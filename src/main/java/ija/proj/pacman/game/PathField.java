@@ -4,18 +4,24 @@
  */
 package ija.proj.pacman.game;
 
+import ija.proj.pacman.GameView;
 import ija.proj.pacman.common.Field;
+import ija.proj.pacman.common.IDrawable;
 import ija.proj.pacman.common.Maze;
 import ija.proj.pacman.common.MazeObject;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class PathField implements Field{
+public class PathField implements Field {
     MazeObject mazeObject = null;
     Maze maze = null;
     int row;
     int col;
+
     public PathField(int row, int col){
         this.row = row;
         this.col = col;
+
     }
     @Override
     public boolean canMove() {
@@ -104,6 +110,14 @@ public class PathField implements Field{
             return ('.');
         } else {
             return get().getAscii();
+        }
+
+    }
+    public void draw(){
+        if (isEmpty()){
+
+        }else{
+            get().draw();
         }
 
     }
