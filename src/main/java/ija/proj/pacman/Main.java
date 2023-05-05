@@ -2,6 +2,7 @@ package ija.proj.pacman;
 
 import ija.proj.pacman.common.Maze;
 import ija.proj.pacman.game.CommonMaze;
+import ija.proj.pacman.game.Logger;
 import ija.proj.pacman.game.MazeConfigure;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -10,14 +11,12 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class Main extends Application{
-
+public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         GameView gameView = GameView.getInstance();
@@ -52,10 +51,19 @@ public class Main extends Application{
         stage.setScene(scene);
         stage.show();
     }
+
     public static void main(String[] args) throws FileNotFoundException {
 
         launch();
 //        LoadMapTest test = new LoadMapTest();
 //        test.LoadMapTest01();
+
+        Logger log = new Logger();
+        //load the map
+        Maze maze = log.LoadMap();
+        //first log
+        log.LogMap(maze);
+        //second log
+        log.LogMap(maze);
     }
 }
