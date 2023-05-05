@@ -4,19 +4,24 @@
  */
 package ija.proj.pacman.game;
 
+import ija.proj.pacman.GameView;
 import ija.proj.pacman.common.Field;
 import ija.proj.pacman.common.Maze;
 import ija.proj.pacman.common.MazeObject;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class TargetField implements Field {
     /*TODO create logic for the TARGET FIELD*/
     MazeObject mazeObject = null;
     Maze maze=null;
+    Image targetImage;
     int row;
     int col;
     public TargetField(int row, int col){
         this.row = row;
         this.col = col;
+        this.targetImage = new Image("file:lib/img/chest.png");
     }
 
     @Override
@@ -57,6 +62,7 @@ public class TargetField implements Field {
         return ('T');
     }
     public void draw(){
-
+        ImageView imageView = GameView.getInstance().getImageView(row, col);
+        imageView.setImage(this.targetImage);
     }
 }

@@ -46,7 +46,7 @@ public class Main extends Application {
 
         layout.setTop(menu);
         layout.setCenter(gameView);
-        Scene scene = new Scene(layout, 320, 240);
+        Scene scene = new Scene(layout, 300, 300);
         stage.setTitle("Pac-Man");
         stage.setScene(scene);
         stage.show();

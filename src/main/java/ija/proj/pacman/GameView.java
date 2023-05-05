@@ -23,10 +23,10 @@ public class GameView extends Group {
             for (int j = 0; j < 12; j++) {
                 ImageView cell = new ImageView();
                 cell.setStyle("-fx-background-color: BLACK");
-                cell.setX(j * 20);
-                cell.setY(i * 20);
-                cell.setFitWidth(20);
-                cell.setFitHeight(20);
+                cell.setX(j * 30);
+                cell.setY(i * 30);
+                cell.setFitWidth(30);
+                cell.setFitHeight(30);
                 this.gridCells[i][j] = cell;
                 this.getChildren().add(cell);
             }
