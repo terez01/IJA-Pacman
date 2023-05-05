@@ -1,4 +1,7 @@
 iteracia
 mapa
 iteracia
-mapa
+mapaiterationNum
+iterationNum
+1
+2

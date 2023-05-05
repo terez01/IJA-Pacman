@@ -11,38 +11,38 @@ import java.util.List;
 import java.util.LinkedList;
 
 public class CommonMaze implements Maze {
-    LinkedList<Field> charList;
+    LinkedList<Field> fieldList;
     private int rows = 0;
     private int cols = 0;
     public CommonMaze(int rows, int cols, List<Character> charList){
-        this.charList = new LinkedList<Field>();
+        this.fieldList = new LinkedList<Field>();
 
         for (int i = 0; i < charList.size(); i++){
             if (charList.get(i) == 'X'){
                 Field newField = new WallField(i/cols, i%cols);
-                this.charList.add(newField);
+                this.fieldList.add(newField);
                 newField.setMaze(this);
             } else if (charList.get(i) == '.') {
                 Field newField = new PathField(i/cols, i%cols);
-                this.charList.add(newField);
+                this.fieldList.add(newField);
                 newField.setMaze(this);
             } else if (charList.get(i) == 'S'){
                 Field newField = new PathField(i/cols, i%cols);
-                this.charList.add(newField);
+                this.fieldList.add(newField);
                 newField.put(new PacmanObject(this, i/cols, i%cols));
                 newField.setMaze(this);
             } else if (charList.get(i) == 'T'){
                 Field newField = new TargetField(i/cols, i%cols);
-                this.charList.add(newField);
+                this.fieldList.add(newField);
                 newField.setMaze(this);
             } else if (charList.get(i) == 'K'){
                 Field newField = new PathField(i/cols, i%cols);
-                this.charList.add(newField);
+                this.fieldList.add(newField);
                 newField.put(new KeyObject(this, i/cols, i%cols));
                 newField.setMaze(this);
             } else if (charList.get(i) == 'G'){
                 Field newField = new PathField(i/cols, i%cols);
-                this.charList.add(newField);
+                this.fieldList.add(newField);
                 newField.put(new GhostObject(this, i/cols, i%cols));
                 newField.setMaze(this);
             }
@@ -52,7 +52,7 @@ public class CommonMaze implements Maze {
     }
     public Field getField(int row, int col){
         if (row>=0 && row<rows && col>=0 && col<cols){
-            return charList.get(row*cols + col);
+            return fieldList.get(row*cols + col);
         }else {
             return null;
         }

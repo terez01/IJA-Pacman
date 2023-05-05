@@ -1,5 +1,6 @@
 package ija.proj.pacman;
 
+import ija.proj.pacman.game.Logger;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
@@ -42,7 +43,15 @@ public class Main extends Application {
 
     public static void main(String[] args) throws FileNotFoundException {
         launch();
-        LoadMapTest test = new LoadMapTest();
-        test.LoadMapTest01();
+//        LoadMapTest test = new LoadMapTest();
+//        test.LoadMapTest01();
+
+        Logger log = new Logger();
+        //load the map
+        log.LoadMap();
+        //first log
+        log.LogMap();
+        //second log
+        log.LogMap();
     }
 }
