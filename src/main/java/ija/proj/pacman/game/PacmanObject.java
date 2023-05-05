@@ -51,6 +51,6 @@ public class PacmanObject implements MazeObject {
         }
     }
     public char getAscii(){
-        return 'P';
+        return 'S';
     }
 }

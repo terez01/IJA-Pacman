@@ -2,6 +2,7 @@ package ija.proj.pacman;
 
 import ija.proj.pacman.common.Maze;
 
+import ija.proj.pacman.game.CommonMaze;
 import ija.proj.pacman.game.Logger;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -55,5 +56,11 @@ public class Main extends Application {
         log.LogMap(maze);
         //second log
         log.LogMap(maze);
+
+        Maze tmpMaze = log.LoadLogMap(1);
+        if (tmpMaze != null) {
+            CommonMaze comMaze = (CommonMaze) tmpMaze;
+            comMaze.printMaze();
+        }
     }
 }
