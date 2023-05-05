@@ -26,7 +26,12 @@ public class Main extends Application {
         CommonMaze maze = cfg.loadMazeFromFile("data/map01.txt");
         maze.redraw();
 
+        GameController controller = new GameController();
+
+
         BorderPane layout = new BorderPane();
+
+        layout.setOnKeyPressed(controller);
 
         MenuBar menu = new MenuBar();
         Menu play = new Menu("Play");
@@ -50,6 +55,8 @@ public class Main extends Application {
         stage.setTitle("Pac-Man");
         stage.setScene(scene);
         stage.show();
+        layout.requestFocus();
+
     }
 
     public static void main(String[] args) throws FileNotFoundException {
