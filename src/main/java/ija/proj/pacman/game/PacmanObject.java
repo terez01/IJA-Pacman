@@ -4,18 +4,23 @@
  */
 package ija.proj.pacman.game;
 
+import ija.proj.pacman.GameView;
 import ija.proj.pacman.common.Field;
 import ija.proj.pacman.common.Maze;
 import ija.proj.pacman.common.MazeObject;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class PacmanObject implements MazeObject {
     int row;
     int col;
     Maze maze = null;
+    Image pacmanImage;
     public PacmanObject(Maze maze, int row, int col){
         this.maze = maze;
         this.col = col;
         this.row = row;
+        this.pacmanImage = new Image("file:lib/img/right.png");
     }
     @Override
     public boolean canMove(Field.Direction dir) {
@@ -52,5 +57,9 @@ public class PacmanObject implements MazeObject {
     }
     public char getAscii(){
         return 'P';
+    }
+    public void draw(){
+        ImageView imageView = GameView.getInstance().getImageView(row, col);
+        imageView.setImage(this.pacmanImage);
     }
 }

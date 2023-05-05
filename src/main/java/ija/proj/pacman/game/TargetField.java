@@ -56,4 +56,7 @@ public class TargetField implements Field {
     public char getAscii(){
         return ('T');
     }
+    public void draw(){
+
+    }
 }

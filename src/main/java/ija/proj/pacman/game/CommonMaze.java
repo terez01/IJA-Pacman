@@ -5,6 +5,7 @@
 package ija.proj.pacman.game;
 
 import ija.proj.pacman.common.Field;
+import ija.proj.pacman.common.IDrawable;
 import ija.proj.pacman.common.Maze;
 
 import java.util.List;
@@ -72,6 +73,14 @@ public class CommonMaze implements Maze {
                 System.out.print(tmpField.getAscii());
             }
             System.out.print('\n');
+        }
+    }
+    public void redraw(){
+        for (int i=0; i<rows; i++){
+            for(int j=0; j<cols; j++) {
+                Field tmpField = getField(i, j);
+                tmpField.draw();
+            }
         }
     }
 }

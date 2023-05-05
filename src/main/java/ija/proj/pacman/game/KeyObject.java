@@ -30,4 +30,7 @@ public class KeyObject implements MazeObject  {
     public char getAscii(){
         return 'K';
     }
+    public void draw(){
+
+    }
 }

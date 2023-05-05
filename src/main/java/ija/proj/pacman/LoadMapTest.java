@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class LoadMapTest {
     public void LoadMapTest01() throws FileNotFoundException {
-        File file = new File("C:/School/git/3bit/summer2023/ija/pacman/data/map01.txt");   //path to the map
+        File file = new File("data/map01.txt");   //path to the map
 
         Scanner scan = new Scanner(file);
 

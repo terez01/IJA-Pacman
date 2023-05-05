@@ -6,8 +6,11 @@ package ija.proj.pacman.game;
 
 import ija.proj.pacman.common.Maze;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 public class MazeConfigure {
     List<Character> charList;
@@ -96,5 +99,29 @@ public class MazeConfigure {
         } else {
             return true;
         }
+    }
+    public CommonMaze loadMazeFromFile(String filePath) throws FileNotFoundException {
+        File file = new File(filePath);   //path to the map
+
+        Scanner scan = new Scanner(file);
+
+        String fileContent = "";    //string storing the file
+
+        MazeConfigure cfg = new MazeConfigure();
+        String line = scan.nextLine();
+        String[] parts = line.split(" ");
+        int num1 = Integer.parseInt(parts[0]);
+        int num2 = Integer.parseInt(parts[1]);
+
+        cfg.startReading(num1, num2);
+        while(scan.hasNextLine()){
+            cfg.processLine(scan.nextLine());
+        }
+
+        cfg.stopReading();
+
+        Maze tmpmaze = cfg.createMaze();
+        CommonMaze maze = (CommonMaze) tmpmaze;
+        return maze;
     }
 }
