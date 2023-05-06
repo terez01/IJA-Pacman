@@ -30,8 +30,17 @@ public class TargetField implements Field {
     }
 
     @Override
-    public boolean canMove() {
+    public boolean canMove(MazeObject movingObject) {
+        if (movingObject instanceof PacmanObject){
+            if (((PacmanObject) movingObject).hasKey){
+                System.out.println("pohol sa na target");
+                return true;
+            }
+            System.out.println("instancia pacmana");
+        }
+        System.out.println("nevie sa pohnut");
         return false;
+
     }
 
     @Override
