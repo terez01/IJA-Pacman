@@ -1,6 +1,11 @@
-5 5
-.G.K.
-.....
-.XXX.
-.S.T.
-.....
+10 10
+K........G
+.XXX.XXXX.
+.XXX.XXXX.
+..........
+.XXXX.XXX.
+.XXXX.XXX.
+.........G
+.XXX.XXXX.
+.XXX.XXXX.
+S........T
