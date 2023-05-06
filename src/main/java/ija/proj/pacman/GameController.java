@@ -2,25 +2,28 @@ package ija.proj.pacman;
 
 import ija.proj.pacman.common.Field;
 import ija.proj.pacman.game.CommonMaze;
+import ija.proj.pacman.game.Logger;
 import ija.proj.pacman.game.MazeConfigure;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import java.io.FileNotFoundException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameController implements EventHandler<KeyEvent> {
+
+    Logger log = new Logger();
     private int frames = 200;
     Timer timer;
     CommonMaze maze;
     MazeConfigure cfg = new MazeConfigure();
     Field.Direction direction = Field.Direction.R;
     public GameController(){
-        this.startTimer();
     }
-    private void startTimer() {
+    public void startTimer() {
         this.timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             public void run() {
@@ -28,6 +31,8 @@ public class GameController implements EventHandler<KeyEvent> {
                     public void run() {
                         maze.pacman.move(direction);
                         maze.redraw();
+                        //todo log differently... notify logger or something
+                        log.LogMap(maze);
                     }
                 });
             }
@@ -38,6 +43,15 @@ public class GameController implements EventHandler<KeyEvent> {
 
     public void setMaze(CommonMaze maze) {
         this.maze = maze;
+    }
+
+    public void loadMaze(String path) throws FileNotFoundException {
+        maze = cfg.loadMazeFromFile("data/map01.txt");
+
+        /*first log*/
+        log.LogMap(maze);
+
+        maze.redraw();
     }
 
     @Override
@@ -68,8 +82,6 @@ public class GameController implements EventHandler<KeyEvent> {
                 }
                 break;
         }
-
-        //log
-        //notify log
     }
+
 }
