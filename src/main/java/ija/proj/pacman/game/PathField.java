@@ -28,8 +28,6 @@ public class PathField implements Field {
     public boolean canMove() {
         return true;
     }
-
-    /*TODO add instances key and ghost*/
     @Override
     public MazeObject get() {
 //        if (mazeObject instanceof PacmanObject) {
