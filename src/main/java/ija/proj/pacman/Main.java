@@ -70,7 +70,6 @@ Logger log = new Logger();
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-
         launch();
     }
 
