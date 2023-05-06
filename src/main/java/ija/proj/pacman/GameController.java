@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.io.FileNotFoundException;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -38,11 +39,12 @@ public class GameController implements EventHandler<KeyEvent> {
                 Platform.runLater(new Runnable() {
                     public void run() {
                         maze.pacman.move(direction);
+                        for(int i = 0; i < maze.ghostList.size(); i++){
+                            maze.ghostList.get(i).move(maze.ghostList.get(i).lastDirection);
+                            System.out.println("ghost moved");
+                        }
                         maze.redraw();
-                        //todo log differently... notify logger or something
                         log.LogMap(maze);
-                        //TODO DELETE LATER
-                        System.out.println("DONG");
                     }
                 });
             }

@@ -11,11 +11,14 @@ import ija.proj.pacman.common.MazeObject;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.util.Random;
+
 public class GhostObject implements MazeObject{
     int row;
     int col;
     Maze maze = null;
     Image ghostImage;
+    public Field.Direction lastDirection = Field.Direction.D;
     public GhostObject(Maze maze, int row, int col){
         this.maze = maze;
         this.col = col;
@@ -31,14 +34,58 @@ public class GhostObject implements MazeObject{
             return false;
         }
     }
+    private Field.Direction ghostNewDirection(Field.Direction dir){
+        Random generator = new Random();
+        Field.Direction newDirection = dir;
 
+        boolean right = canMove(Field.Direction.R);
+        boolean left = canMove(Field.Direction.L);
+        boolean up = canMove(Field.Direction.U);
+        boolean down = canMove(Field.Direction.D);
+        boolean decided = false;
+        if(!left && !right && !up){
+            newDirection = Field.Direction.D;
+        }else if(!left && !right && !down){
+            newDirection = Field.Direction.U;
+        }else if(!left && !up && !down){
+            newDirection = Field.Direction.R;
+        }else if(!right && !up && !down){
+            newDirection = Field.Direction.U;
+        }
+        else if(!left && !right || !up && !down) {
+            newDirection = dir;
+        }else{
+            while (!decided) {
+                float random = generator.nextFloat();
+                if (left && random < 0.3){
+                    newDirection = Field.Direction.L;
+                    decided = true;
+                }
+                else if (right && random < 0.5){
+                    newDirection = Field.Direction.R;
+                    decided = true;
+                }
+                else if (up && random < 0.7){
+                    newDirection = Field.Direction.U;
+                    decided = true;
+                }
+                else if (down && random < 1.0){
+                    newDirection = Field.Direction.D;
+                    decided = true;
+                }
+            }
+        }
+
+        return newDirection;
+    }
     @Override
     public boolean move(Field.Direction dir) {
-        if (canMove(dir)) {
-            Field nextField = maze.getField(row,col).nextField(dir);
+        Field.Direction newDirection = ghostNewDirection(dir);
+        if (canMove(newDirection)) {
+            Field nextField = maze.getField(row,col).nextField(newDirection);
             nextField.put(this);
             maze.getField(row,col).remove(this);
-            switch (dir){
+            switch (newDirection){
                 case D:
                     row = row+1;
                     break;
@@ -52,10 +99,12 @@ public class GhostObject implements MazeObject{
                     col = col+1;
                     break;
             }
+            this.lastDirection = newDirection;
             return true;
         }else {
             return false;
         }
+
     }
 
     @Override
