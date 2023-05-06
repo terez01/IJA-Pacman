@@ -3,11 +3,14 @@ package ija.proj.pacman;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GameView extends Group {
     private static GameView instance;
-    private ImageView[][] gridCells;
-    private int cellSize = 30;
-    private int mazeSize = 10;
+    private List<ImageView> gridCells = new ArrayList<>();
+    public int cellSize = 30;
+    private int mapWidth;
 
     private GameView(){
 
@@ -19,22 +22,25 @@ public class GameView extends Group {
         }
         return instance;
     }
-    public void createGrid(){
-        this.gridCells = new ImageView[12][12];
-        for (int i = 0; i < mazeSize+2; i++) {
-            for (int j = 0; j < mazeSize+2; j++) {
+    public void createGrid(int mapRows, int mapCols){
+        this.gridCells.clear();
+        this.getChildren().clear();
+        this.mapWidth = mapCols + 3;
+        for (int i = 0; i < mapRows+3; i++) {
+            for (int j = 0; j < mapCols+3; j++) {
                 ImageView cell = new ImageView();
                 cell.setX(j * cellSize);
                 cell.setY(i * cellSize);
                 cell.setFitWidth(cellSize);
                 cell.setFitHeight(cellSize);
-                this.gridCells[i][j] = cell;
+
+                this.gridCells.add(cell);
                 this.getChildren().add(cell);
             }
         }
     }
     public ImageView getImageView(int row, int col){
-        return this.gridCells[row][col];
+        return this.gridCells.get(row*mapWidth+col);
     }
 
 

@@ -46,12 +46,12 @@ public class GameController implements EventHandler<KeyEvent> {
     }
 
     public void loadMaze(String path) throws FileNotFoundException {
-        maze = cfg.loadMazeFromFile("data/map01.txt");
+        maze = cfg.loadMazeFromFile(path);
 
         /*first log*/
         log.LogMap(maze);
 
-        maze.redraw();
+//        maze.redraw();
     }
 
     @Override
