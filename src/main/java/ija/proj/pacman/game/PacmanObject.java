@@ -52,6 +52,7 @@ public class PacmanObject implements MazeObject {
                 System.out.println("Pacman is hurt");
                 if (this.lifeCnt == 0){
                     //Game over - stop the timer
+
                     GameController controller = GameController.getInstance();
                     controller.stopTimer();
                 }
