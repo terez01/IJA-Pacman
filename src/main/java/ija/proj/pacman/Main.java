@@ -68,7 +68,7 @@ public class Main extends Application {
 
                 controller.loadMaze("data/map01.txt");
 
-                layout.setOnKeyPressed(controller);
+                //layout.setOnKeyPressed(controller);
                 gameView.createGrid(controller.maze.numRows(), controller.maze.numCols());
 
                 controller.maze.redraw();
@@ -84,7 +84,7 @@ public class Main extends Application {
 
                 controller.loadMaze("data/map02.txt");
 
-                layout.setOnKeyPressed(controller);
+                //layout.setOnKeyPressed(controller);
                 gameView.createGrid(controller.maze.numRows(), controller.maze.numCols());
 
                 controller.maze.redraw();
@@ -100,7 +100,7 @@ public class Main extends Application {
 
                 controller.loadMaze("data/map03.txt");
 
-                layout.setOnKeyPressed(controller);
+                //layout.setOnKeyPressed(controller);
                 gameView.createGrid(controller.maze.numRows(), controller.maze.numCols());
 
                 controller.maze.redraw();
@@ -111,33 +111,10 @@ public class Main extends Application {
 
         });
 
-        item2.setOnAction(actionEvent -> {
-            try{
 
-                controller.loadMaze("data/map02.txt");
-
-                layout.setOnKeyPressed(controller);
-
-
-            } catch (FileNotFoundException e){
-                e.printStackTrace();
-            }
-        });
-
-        item3.setOnAction(actionEvent -> {
-            try{
-
-                controller.loadMaze("data/map03.txt");
-
-                layout.setOnKeyPressed(controller);
-
-
-            } catch (FileNotFoundException e){
-                e.printStackTrace();
-            }
-        });
 
         playButton.setOnAction(actionEvent -> {
+            layout.setOnKeyPressed(controller);
             controller.startTimer();
             System.out.print("DING\n");
         });
