@@ -6,14 +6,22 @@ package ija.proj.pacman.game;
 
 import ija.proj.pacman.common.Field;
 import ija.proj.pacman.common.Maze;
+import ija.proj.pacman.common.MazeObject;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.LinkedList;
 
 public class CommonMaze implements Maze {
     LinkedList<Field> fieldList;
+    List<MazeObject> mazeObjectList;
+    List<MazeObject> ghostList = new ArrayList<>();
+
+    public PacmanObject pacman;
+    KeyObject key;
     private int rows = 0;
     private int cols = 0;
+
     public CommonMaze(int rows, int cols, List<Character> charList){
         this.fieldList = new LinkedList<Field>();
 
@@ -29,7 +37,8 @@ public class CommonMaze implements Maze {
             } else if (charList.get(i) == 'S'){
                 Field newField = new PathField(i/cols, i%cols);
                 this.fieldList.add(newField);
-                newField.put(new PacmanObject(this, i/cols, i%cols));
+                pacman = new PacmanObject(this, i/cols, i%cols);
+                newField.put(pacman);
                 newField.setMaze(this);
             } else if (charList.get(i) == 'T'){
                 Field newField = new TargetField(i/cols, i%cols);
@@ -38,12 +47,15 @@ public class CommonMaze implements Maze {
             } else if (charList.get(i) == 'K'){
                 Field newField = new PathField(i/cols, i%cols);
                 this.fieldList.add(newField);
-                newField.put(new KeyObject(this, i/cols, i%cols));
+                key = new KeyObject(this, i/cols, i%cols);
+                newField.put(key);
                 newField.setMaze(this);
             } else if (charList.get(i) == 'G'){
                 Field newField = new PathField(i/cols, i%cols);
                 this.fieldList.add(newField);
-                newField.put(new GhostObject(this, i/cols, i%cols));
+                GhostObject newGhost = new GhostObject(this, i/cols, i%cols);
+                newField.put(newGhost);
+                ghostList.add(newGhost);
                 newField.setMaze(this);
             }
         }

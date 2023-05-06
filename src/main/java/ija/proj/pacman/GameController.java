@@ -1,5 +1,6 @@
 package ija.proj.pacman;
 
+import ija.proj.pacman.common.Field;
 import ija.proj.pacman.game.CommonMaze;
 import ija.proj.pacman.game.MazeConfigure;
 import javafx.application.Platform;
@@ -13,6 +14,8 @@ import java.util.TimerTask;
 public class GameController implements EventHandler<KeyEvent> {
     private int frames = 200;
     Timer timer;
+
+    /*TODO GET THE FUCKING MAZE IN HERE FROM MAIN SOMEHOW pls*/
     CommonMaze maze;
     MazeConfigure cfg = new MazeConfigure();
     public GameController(){
@@ -33,22 +36,36 @@ public class GameController implements EventHandler<KeyEvent> {
         this.timer.schedule(timerTask, 0, frames);
     }
 
+    public void setMaze(CommonMaze maze) {
+        this.maze = maze;
+    }
+
     @Override
     public void handle(KeyEvent keyEvent) {
         switch (keyEvent.getCode()){
             case UP:
-                System.out.print("up");
+                if (maze.pacman.move(Field.Direction.U)){
+                    System.out.println("Pohol sa hore\n");
+                }
                 break;
             case DOWN:
-                System.out.print("down");
+                if (maze.pacman.move(Field.Direction.D)){
+                    System.out.println("Pohol sa dolu\n");
+                }
                 break;
             case LEFT:
-                System.out.print("left");
+                if (maze.pacman.move(Field.Direction.L)){
+                    System.out.println("Pohol sa dolava\n");
+                }
                 break;
             case RIGHT:
-                System.out.print("right");
+                if (maze.pacman.move(Field.Direction.R)){
+                    System.out.println("Pohol sa doprava\n");
+                }
                 break;
-
         }
+        maze.redraw();
+        //log
+        //notify log
     }
 }

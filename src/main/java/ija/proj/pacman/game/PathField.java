@@ -4,11 +4,15 @@
  */
 package ija.proj.pacman.game;
 
+import ija.proj.pacman.GameView;
 import ija.proj.pacman.common.Field;
 import ija.proj.pacman.common.Maze;
 import ija.proj.pacman.common.MazeObject;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class PathField implements Field {
+    Image pathImage;
     MazeObject mazeObject = null;
     Maze maze = null;
     int row;
@@ -17,6 +21,7 @@ public class PathField implements Field {
     public PathField(int row, int col){
         this.row = row;
         this.col = col;
+        this.pathImage = new Image("file:lib/img/path.png");
 
     }
     @Override
@@ -111,7 +116,8 @@ public class PathField implements Field {
     }
     public void draw(){
         if (isEmpty()){
-
+            ImageView imageView = GameView.getInstance().getImageView(row, col);
+            imageView.setImage(this.pathImage);
         }else{
             get().draw();
         }

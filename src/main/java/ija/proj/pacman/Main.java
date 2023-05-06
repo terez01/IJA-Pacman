@@ -36,6 +36,8 @@ Logger log = new Logger();
 
         GameController controller = new GameController();
 
+        controller.setMaze(maze);
+
 
         BorderPane layout = new BorderPane();
 
