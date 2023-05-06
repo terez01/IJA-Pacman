@@ -25,12 +25,12 @@ Logger log = new Logger();
         gameView.createGrid();
 
         MazeConfigure cfg = new MazeConfigure();
-        CommonMaze maze = cfg.loadMazeFromFile("data/map01.txt");
+        CommonMaze maze = cfg.loadMazeFromFile("data/map02.txt");
 
         /*first log*/
-        log.LogMap(maze);
+//        log.LogMap(maze);
         //second log
-        log.LogMap(maze);
+//        log.LogMap(maze);
 
         maze.redraw();
 
