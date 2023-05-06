@@ -20,17 +20,42 @@ public class GhostObject implements MazeObject{
         this.maze = maze;
         this.col = col;
         this.row = row;
-        this.ghostImage = new Image("file:lib/img/ghost_red.png");
     }
 
     @Override
     public boolean canMove(Field.Direction dir) {
-        return false;
+        Field tmpfield = maze.getField(row, col).nextField(dir);
+        if (tmpfield != null){
+            return tmpfield.canMove(maze.getField(row, col).get());
+        } else {
+            return false;
+        }
     }
 
     @Override
     public boolean move(Field.Direction dir) {
-        return false;
+        if (canMove(dir)) {
+            Field nextField = maze.getField(row,col).nextField(dir);
+            nextField.put(this);
+            maze.getField(row,col).remove(this);
+            switch (dir){
+                case D:
+                    row = row+1;
+                    break;
+                case L:
+                    col = col-1;
+                    break;
+                case U:
+                    row = row-1;
+                    break;
+                case R:
+                    col = col+1;
+                    break;
+            }
+            return true;
+        }else {
+            return false;
+        }
     }
 
     @Override

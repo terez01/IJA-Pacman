@@ -61,15 +61,19 @@ public class PacmanObject implements MazeObject {
             switch (dir){
                 case D:
                     row = row+1;
+                    this.pacmanImage = new Image("file:lib/img/down.png");
                     break;
                 case L:
                     col = col-1;
+                    this.pacmanImage = new Image("file:lib/img/left.png");
                     break;
                 case U:
                     row = row-1;
+                    this.pacmanImage = new Image("file:lib/img/up.png");
                     break;
                 case R:
                     col = col+1;
+                    this.pacmanImage = new Image("file:lib/img/right.png");
                     break;
             }
             return true;

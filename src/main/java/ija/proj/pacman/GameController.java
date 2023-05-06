@@ -66,13 +66,8 @@ public class GameController implements EventHandler<KeyEvent> {
         /*first log*/
         log.LogMap(maze);
 
-        maze.redraw();
+//        maze.redraw();
     }
-
-//    public void unloadMaze(){
-//        maze = null;
-////        maze.redraw();
-//    }
 
     @Override
     public void handle(KeyEvent keyEvent) {
@@ -103,8 +98,5 @@ public class GameController implements EventHandler<KeyEvent> {
                 break;
         }
     }
-//    public void endGame(){
-//        stopTimer();
-//    }
 
 }

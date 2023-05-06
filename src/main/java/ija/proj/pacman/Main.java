@@ -21,7 +21,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         GameView gameView = GameView.getInstance();
-        gameView.createGrid();
+
 
 
 //        MazeConfigure cfg = new MazeConfigure();
@@ -36,7 +36,9 @@ public class Main extends Application {
 //
 //        controller.setMaze(maze);
 
-
+        controller.loadMaze("data/map01.txt");
+        gameView.createGrid(controller.maze.numRows(), controller.maze.numCols());
+        controller.maze.redraw();
         BorderPane layout = new BorderPane();
 
 //        layout.setOnKeyPressed(controller);
@@ -67,11 +69,46 @@ public class Main extends Application {
                 controller.loadMaze("data/map01.txt");
 
                 layout.setOnKeyPressed(controller);
+                gameView.createGrid(controller.maze.numRows(), controller.maze.numCols());
 
+                controller.maze.redraw();
 
             } catch (FileNotFoundException e){
                 e.printStackTrace();
             }
+
+        });
+
+        item2.setOnAction(actionEvent -> {
+            try{
+
+                controller.loadMaze("data/map02.txt");
+
+                layout.setOnKeyPressed(controller);
+                gameView.createGrid(controller.maze.numRows(), controller.maze.numCols());
+
+                controller.maze.redraw();
+
+            } catch (FileNotFoundException e){
+                e.printStackTrace();
+            }
+
+        });
+
+        item3.setOnAction(actionEvent -> {
+            try{
+
+                controller.loadMaze("data/map03.txt");
+
+                layout.setOnKeyPressed(controller);
+                gameView.createGrid(controller.maze.numRows(), controller.maze.numCols());
+
+                controller.maze.redraw();
+
+            } catch (FileNotFoundException e){
+                e.printStackTrace();
+            }
+
         });
 
         item2.setOnAction(actionEvent -> {
@@ -107,7 +144,7 @@ public class Main extends Application {
 
         layout.setTop(menu);
         layout.setCenter(gameView);
-        Scene scene = new Scene(layout, 500, 400);
+        Scene scene = new Scene(layout, controller.maze.numRows()*gameView.cellSize , controller.maze.numCols()*gameView.cellSize + 25);
         stage.setTitle("Pac-Man");
         stage.setScene(scene);
         stage.show();
