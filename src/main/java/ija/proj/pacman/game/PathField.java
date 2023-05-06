@@ -25,7 +25,7 @@ public class PathField implements Field {
 
     }
     @Override
-    public boolean canMove() {
+    public boolean canMove(MazeObject movingObject) {
         return true;
     }
     @Override

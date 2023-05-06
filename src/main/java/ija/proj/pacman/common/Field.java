@@ -9,7 +9,7 @@ public interface Field {
         U, L, D, R
     }
     Field nextField(Field.Direction dir);
-    boolean canMove();
+    boolean canMove(MazeObject movingObject);
     boolean isEmpty();
     MazeObject get();
     boolean put(MazeObject object);

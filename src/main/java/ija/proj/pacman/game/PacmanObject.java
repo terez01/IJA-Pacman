@@ -16,6 +16,7 @@ public class PacmanObject implements MazeObject {
     int col;
     Maze maze = null;
     Image pacmanImage;
+    boolean hasKey = false;
     public PacmanObject(Maze maze, int row, int col){
         this.maze = maze;
         this.col = col;
@@ -26,7 +27,7 @@ public class PacmanObject implements MazeObject {
     public boolean canMove(Field.Direction dir) {
         Field tmpfield = maze.getField(row, col).nextField(dir);
         if (tmpfield != null){
-            return tmpfield.canMove();
+            return tmpfield.canMove(maze.getField(row, col).get());
         } else {
             return false;
         }
@@ -34,7 +35,14 @@ public class PacmanObject implements MazeObject {
     @Override
     public boolean move(Field.Direction dir) {
         if (canMove(dir)) {
-            maze.getField(row,col).nextField(dir).put(this);
+            Field nextField = maze.getField(row,col).nextField(dir);
+            //Key grabbing logic
+            if (nextField.get() instanceof KeyObject){
+                hasKey = true;
+                System.out.println("Pacman took the key");
+                nextField.remove(nextField.get());
+            }
+            nextField.put(this);
             maze.getField(row,col).remove(this);
             switch (dir){
                 case D:

@@ -22,7 +22,7 @@ public class WallField implements Field {
         this.wallImage = new Image("file:lib/img/wall.png");
     }
     @Override
-    public boolean canMove() {
+    public boolean canMove(MazeObject movingObject) {
         return false;
     }
 
