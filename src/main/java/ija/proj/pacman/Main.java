@@ -8,9 +8,13 @@ import ija.proj.pacman.game.Playback;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -22,19 +26,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         GameView gameView = GameView.getInstance();
-
-
-
-//        MazeConfigure cfg = new MazeConfigure();
-//        CommonMaze maze = cfg.loadMazeFromFile("data/map03.txt");
-//
-//        /*first log*/
-//        log.LogMap(maze);
-//
-//        maze.redraw();
-//
         GameController controller = GameController.getInstance();
-
         Playback playBack = new Playback(controller.log);
 //
 //        controller.setMaze(maze);
@@ -73,6 +65,14 @@ public class Main extends Application {
         MenuItem previousLogButton = new MenuItem("previous");
 
         log.getItems().addAll(startLogButton, endLogButton, nextLogButton, previousLogButton);
+        //observer to change labels
+        Label label = new Label("Lives: 3");
+        Label labelStatus = new Label();
+        gameView.setLabelLives(label);
+        gameView.setLabelStatus(labelStatus);
+
+        VBox bottom = new VBox();
+        bottom.getChildren().addAll(label, labelStatus);
 
         item1.setOnAction(actionEvent -> {
             try{
@@ -159,8 +159,8 @@ public class Main extends Application {
 
         layout.setTop(menu);
         layout.setCenter(gameView);
-        //layout for playback buttons
-        Scene scene = new Scene(layout, controller.maze.numRows()*gameView.cellSize , controller.maze.numCols()*gameView.cellSize + 25);
+        layout.setBottom(bottom);
+        Scene scene = new Scene(layout);
         stage.setTitle("Pac-Man");
         stage.setScene(scene);
         stage.show();

@@ -12,8 +12,10 @@ import ija.proj.pacman.common.MazeObject;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class PacmanObject implements MazeObject {
-    int lifeCnt;
+import java.util.Observable;
+
+public class PacmanObject extends Observable implements MazeObject {
+    public int lifeCnt;
     int row;
     int col;
     Maze maze = null;
@@ -25,6 +27,7 @@ public class PacmanObject implements MazeObject {
         this.col = col;
         this.row = row;
         this.pacmanImage = new Image("file:lib/img/right.png");
+        this.addObserver(GameView.getInstance());
     }
     @Override
     public boolean canMove(Field.Direction dir) {
@@ -99,5 +102,7 @@ public class PacmanObject implements MazeObject {
             GameController controller = GameController.getInstance();
             controller.gameLost();
         }
+        setChanged();
+        notifyObservers();
     }
 }

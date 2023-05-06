@@ -11,18 +11,16 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 import java.io.FileNotFoundException;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
-public class GameController implements EventHandler<KeyEvent> {
+public class GameController extends Observable implements EventHandler<KeyEvent>{
     enum Mode{
         Play, Playback, Stopped
     }
 
     //if the player wins or loses, game controller stops the timer
-    boolean victory = false;
-    boolean defeat = false;
+    public boolean victory = false;
+    public boolean defeat = false;
     private static GameController instance;
     Logger log = new Logger();
     private int frames = 250;
@@ -33,12 +31,15 @@ public class GameController implements EventHandler<KeyEvent> {
 
     Mode mode = Mode.Stopped;
     private GameController(){
+        this.addObserver(GameView.getInstance());
     }
 
     public void init(){
         victory = false;
         defeat = false;
         mode = Mode.Stopped;
+        setChanged();
+        notifyObservers();
     }
     //singleton
     public static GameController getInstance(){
@@ -59,7 +60,6 @@ public class GameController implements EventHandler<KeyEvent> {
                         maze.pacman.move(direction);
                         for(int i = 0; i < maze.ghostList.size(); i++){
                             maze.ghostList.get(i).move(maze.ghostList.get(i).lastDirection);
-                            System.out.println("ghost moved");
                         }
                         maze.redraw();
                         log.LogMap(maze);
@@ -104,25 +104,21 @@ public class GameController implements EventHandler<KeyEvent> {
             case UP:
                 if (maze.pacman.canMove(Field.Direction.U)){
                     direction = Field.Direction.U;
-                    System.out.println("Pohol sa hore\n");
                 }
                 break;
             case DOWN:
                 if (maze.pacman.canMove(Field.Direction.D)){
                     direction = Field.Direction.D;
-                    System.out.println("Pohol sa dolu\n");
                 }
                 break;
             case LEFT:
                 if (maze.pacman.canMove(Field.Direction.L)){
                     direction = Field.Direction.L;
-                    System.out.println("Pohol sa dolava\n");
                 }
                 break;
             case RIGHT:
                 if (maze.pacman.canMove(Field.Direction.R)){
                     direction = Field.Direction.R;
-                    System.out.println("Pohol sa doprava\n");
                 }
                 break;
         }
@@ -149,14 +145,19 @@ public class GameController implements EventHandler<KeyEvent> {
         if (this. defeat){
             stopTimer();
         }
+
     }
 
     public void gameWon(){
         this.victory = true;
+        setChanged();
+        notifyObservers();
     }
 
     public void gameLost(){
         this.defeat = true;
+        setChanged();
+        notifyObservers();
     }
 
 }

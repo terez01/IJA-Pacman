@@ -56,7 +56,7 @@ public class GhostObject implements MazeObject{
         }else if(!left && !up && !down){
             newDirection = Field.Direction.R;
         }else if(!right && !up && !down){
-            newDirection = Field.Direction.U;
+            newDirection = Field.Direction.L;
         }
         else if((!left && !right) || (!up && !down)) {
             newDirection = dir;
