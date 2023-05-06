@@ -29,7 +29,12 @@ public class GhostObject implements MazeObject{
     public boolean canMove(Field.Direction dir) {
         Field tmpfield = maze.getField(row, col).nextField(dir);
         if (tmpfield != null){
-            return tmpfield.canMove(maze.getField(row, col).get());
+            if(tmpfield.get() instanceof GhostObject){
+                return true;
+            }else{
+                return tmpfield.canMove(maze.getField(row, col).get());
+            }
+
         } else {
             return false;
         }
@@ -43,6 +48,7 @@ public class GhostObject implements MazeObject{
         boolean up = canMove(Field.Direction.U);
         boolean down = canMove(Field.Direction.D);
         boolean decided = false;
+
         if(!left && !right && !up){
             newDirection = Field.Direction.D;
         }else if(!left && !right && !down){
@@ -52,20 +58,26 @@ public class GhostObject implements MazeObject{
         }else if(!right && !up && !down){
             newDirection = Field.Direction.U;
         }
-        else if(!left && !right || !up && !down) {
+        else if((!left && !right) || (!up && !down)) {
             newDirection = dir;
         }else{
+            switch(this.lastDirection){
+                case L -> right = false;
+                case D -> up = false;
+                case U -> down = false;
+                case R -> left = false;
+            }
             while (!decided) {
                 float random = generator.nextFloat();
-                if (left && random < 0.3){
+                if (left && random < 0.25){
                     newDirection = Field.Direction.L;
                     decided = true;
                 }
-                else if (right && random < 0.5){
+                else if (right && random < 0.50){
                     newDirection = Field.Direction.R;
                     decided = true;
                 }
-                else if (up && random < 0.7){
+                else if (up && random < 0.75){
                     newDirection = Field.Direction.U;
                     decided = true;
                 }
@@ -75,7 +87,7 @@ public class GhostObject implements MazeObject{
                 }
             }
         }
-
+        this.lastDirection = newDirection;
         return newDirection;
     }
     @Override
