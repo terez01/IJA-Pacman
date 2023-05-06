@@ -25,7 +25,7 @@ public class GameController implements EventHandler<KeyEvent> {
     boolean defeat = false;
     private static GameController instance;
     Logger log = new Logger();
-    private int frames = 200;
+    private int frames = 250;
     Timer timer;
     CommonMaze maze;
     MazeConfigure cfg = new MazeConfigure();
