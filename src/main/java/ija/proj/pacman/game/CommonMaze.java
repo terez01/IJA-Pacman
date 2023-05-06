@@ -15,7 +15,7 @@ import java.util.LinkedList;
 public class CommonMaze implements Maze {
     LinkedList<Field> fieldList;
     List<MazeObject> mazeObjectList;
-    List<MazeObject> ghostList = new ArrayList<>();
+    public List<MazeObject> ghostList = new ArrayList<>();
 
     public PacmanObject pacman;
     KeyObject key;
