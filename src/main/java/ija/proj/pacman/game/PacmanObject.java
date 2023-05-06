@@ -46,36 +46,25 @@ public class PacmanObject implements MazeObject {
                 //remove the grabbed key
                 nextField.remove(nextField.get());
             }
-            //hurting the pacman
-            if (nextField.get() instanceof GhostObject){
-                this.lifeCnt--;
-                System.out.println("Pacman is hurt");
-                if (this.lifeCnt == 0){
-                    //Game over - stop the timer
-
-                    GameController controller = GameController.getInstance();
-                    controller.stopTimer();
-                }
-            }
             nextField.put(this);
             maze.getField(row,col).remove(this);
-            switch (dir){
-                case D:
-                    row = row+1;
+            switch (dir) {
+                case D -> {
+                    row = row + 1;
                     this.pacmanImage = new Image("file:lib/img/down.png");
-                    break;
-                case L:
-                    col = col-1;
+                }
+                case L -> {
+                    col = col - 1;
                     this.pacmanImage = new Image("file:lib/img/left.png");
-                    break;
-                case U:
-                    row = row-1;
+                }
+                case U -> {
+                    row = row - 1;
                     this.pacmanImage = new Image("file:lib/img/up.png");
-                    break;
-                case R:
-                    col = col+1;
+                }
+                case R -> {
+                    col = col + 1;
                     this.pacmanImage = new Image("file:lib/img/right.png");
-                    break;
+                }
             }
             return true;
         }else {
@@ -94,5 +83,21 @@ public class PacmanObject implements MazeObject {
     public void draw(){
         ImageView imageView = GameView.getInstance().getImageView(row, col);
         imageView.setImage(this.pacmanImage);
+    }
+
+    public int getRow(){
+        return row;
+    }
+    public int getCol(){
+        return col;
+    }
+    public void hurt(){
+        lifeCnt--;
+        if (lifeCnt <= 0){
+            //Game over - stop the timer
+
+            GameController controller = GameController.getInstance();
+            controller.gameLost();
+        }
     }
 }

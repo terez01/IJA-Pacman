@@ -37,7 +37,7 @@ public class TargetField implements Field {
                 System.out.println("pohol sa na target");
                 //STOPS THE TIMER - THE PLAYER WON THIS WAY
                 GameController controller = GameController.getInstance();
-                controller.stopTimer();
+                controller.gameWon();
                 return true;
             }
             System.out.println("instancia pacmana");

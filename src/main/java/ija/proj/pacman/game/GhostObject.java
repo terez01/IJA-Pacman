@@ -131,4 +131,11 @@ public class GhostObject implements MazeObject{
         ImageView imageView = GameView.getInstance().getImageView(row, col);
         imageView.setImage(this.ghostImage);
     }
+
+    public int getRow(){
+        return row;
+    }
+    public int getCol(){
+        return col;
+    }
 }

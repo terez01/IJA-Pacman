@@ -16,7 +16,11 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Logger {
-    Maze logMaze = null;
+
+    public void reset(){
+        iterationNum = 0;
+    }
+//    Maze logMaze = null;
     int iterationNum = 0;
 
     /**
@@ -107,7 +111,7 @@ public class Logger {
     /**
      * Function finds the desired Maze by the log number and returns it, if the log number is not in the file, return null
      */
-    public Maze LoadLogMap(int iterNum) throws FileNotFoundException{
+    public CommonMaze LoadLogMap(int iterNum) throws FileNotFoundException{
 
         File file = new File("data/log.txt");   //path to the logged iterations of the map
 
@@ -152,4 +156,35 @@ public class Logger {
         }
         return null;
     }
+
+    /**
+     * Function gets the last iteration number, function returns zero if there is none
+     * @return
+     * @throws FileNotFoundException
+     */
+    public int LogGetLastIterNum() throws FileNotFoundException {
+        int lastIterNum = 0;
+
+        File file = new File("data/log.txt");   //path to the logged iterations of the map
+
+        Scanner scan = new Scanner(file);
+        if (!scan.hasNextLine()){
+            return 0;
+        } else {
+            String readLine = scan.nextLine();  //reads the first line (the dimensions of the Mazes)
+
+            String[] parts = readLine.split(" ");
+            int rowDimension = Integer.parseInt(parts[0]);
+
+            while(scan.hasNextLine()){
+                lastIterNum = Integer.parseInt(scan.nextLine());
+                for (int i = 0; i < rowDimension; i++){
+                    scan.nextLine();
+                }
+            }
+            return lastIterNum;
+        }
+
+    }
+
 }

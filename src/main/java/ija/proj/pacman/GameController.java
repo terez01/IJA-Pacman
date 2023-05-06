@@ -4,6 +4,7 @@ import ija.proj.pacman.common.Field;
 import ija.proj.pacman.game.CommonMaze;
 import ija.proj.pacman.game.Logger;
 import ija.proj.pacman.game.MazeConfigure;
+import ija.proj.pacman.game.PacmanObject;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -15,15 +16,29 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameController implements EventHandler<KeyEvent> {
+    enum Mode{
+        Play, Playback, Stopped
+    }
 
+    //if the player wins or loses, game controller stops the timer
+    boolean victory = false;
+    boolean defeat = false;
     private static GameController instance;
     Logger log = new Logger();
-    private int frames = 200;
+    private int frames = 250;
     Timer timer;
     CommonMaze maze;
     MazeConfigure cfg = new MazeConfigure();
     Field.Direction direction = Field.Direction.R;
+
+    Mode mode = Mode.Stopped;
     private GameController(){
+    }
+
+    public void init(){
+        victory = false;
+        defeat = false;
+        mode = Mode.Stopped;
     }
     //singleton
     public static GameController getInstance(){
@@ -38,6 +53,9 @@ public class GameController implements EventHandler<KeyEvent> {
             public void run() {
                 Platform.runLater(new Runnable() {
                     public void run() {
+                        //checking if the game is still running on each tick
+                        gameOverCheck();
+
                         maze.pacman.move(direction);
                         for(int i = 0; i < maze.ghostList.size(); i++){
                             maze.ghostList.get(i).move(maze.ghostList.get(i).lastDirection);
@@ -45,6 +63,7 @@ public class GameController implements EventHandler<KeyEvent> {
                         }
                         maze.redraw();
                         log.LogMap(maze);
+                        hurtCheck();
                     }
                 });
             }
@@ -54,6 +73,14 @@ public class GameController implements EventHandler<KeyEvent> {
     }
     public void stopTimer(){
         this.timer.cancel();
+    }
+
+    public Mode getMode() {
+        return mode;
+    }
+
+    public void setMode(Mode mode) {
+        this.mode = mode;
     }
 
     public void setMaze(CommonMaze maze) {
@@ -99,6 +126,37 @@ public class GameController implements EventHandler<KeyEvent> {
                 }
                 break;
         }
+    }
+
+    public void hurtCheck(){
+        int pacRow = maze.pacman.getRow();
+        int pacCol = maze.pacman.getCol();
+
+        for (int i = 0; i < maze.ghostList.size(); i++){
+            int ghostRow = maze.ghostList.get(i).getRow();
+            int ghostCol = maze.ghostList.get(i).getCol();
+            //if both pacman and ghost are on the same Field, hurt the pacman
+            if (ghostRow == pacRow && ghostCol == pacCol){
+                maze.pacman.hurt();
+                System.out.println("PACMAN IS HURTING SOOOOO MUCH");
+            }
+        }
+    }
+ public void gameOverCheck(){
+        if (this.victory){
+            stopTimer();
+        }
+        if (this. defeat){
+            stopTimer();
+        }
+    }
+
+    public void gameWon(){
+        this.victory = true;
+    }
+
+    public void gameLost(){
+        this.defeat = true;
     }
 
 }
