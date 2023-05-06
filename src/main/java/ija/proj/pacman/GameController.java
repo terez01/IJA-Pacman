@@ -15,13 +15,21 @@ import java.util.TimerTask;
 
 public class GameController implements EventHandler<KeyEvent> {
 
+    private static GameController instance;
     Logger log = new Logger();
     private int frames = 200;
     Timer timer;
     CommonMaze maze;
     MazeConfigure cfg = new MazeConfigure();
     Field.Direction direction = Field.Direction.R;
-    public GameController(){
+    private GameController(){
+    }
+    //singleton
+    public static GameController getInstance(){
+        if (instance == null){
+            instance = new GameController();
+        }
+        return instance;
     }
     public void startTimer() {
         this.timer = new Timer();
@@ -33,6 +41,8 @@ public class GameController implements EventHandler<KeyEvent> {
                         maze.redraw();
                         //todo log differently... notify logger or something
                         log.LogMap(maze);
+                        //TODO DELETE LATER
+                        System.out.println("DONG");
                     }
                 });
             }
@@ -40,19 +50,29 @@ public class GameController implements EventHandler<KeyEvent> {
 
         this.timer.schedule(timerTask, 10, frames);
     }
+    public void stopTimer(){
+        this.timer.cancel();
+    }
 
     public void setMaze(CommonMaze maze) {
         this.maze = maze;
     }
 
     public void loadMaze(String path) throws FileNotFoundException {
-        maze = cfg.loadMazeFromFile("data/map01.txt");
+//        unloadMaze();
+
+        maze = cfg.loadMazeFromFile(path);
 
         /*first log*/
         log.LogMap(maze);
 
         maze.redraw();
     }
+
+//    public void unloadMaze(){
+//        maze = null;
+////        maze.redraw();
+//    }
 
     @Override
     public void handle(KeyEvent keyEvent) {
@@ -83,5 +103,8 @@ public class GameController implements EventHandler<KeyEvent> {
                 break;
         }
     }
+//    public void endGame(){
+//        stopTimer();
+//    }
 
 }

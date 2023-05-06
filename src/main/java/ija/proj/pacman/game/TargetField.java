@@ -4,6 +4,7 @@
  */
 package ija.proj.pacman.game;
 
+import ija.proj.pacman.GameController;
 import ija.proj.pacman.GameView;
 import ija.proj.pacman.common.Field;
 import ija.proj.pacman.common.Maze;
@@ -34,6 +35,9 @@ public class TargetField implements Field {
         if (movingObject instanceof PacmanObject){
             if (((PacmanObject) movingObject).hasKey){
                 System.out.println("pohol sa na target");
+                //STOPS THE TIMER - THE PLAYER WON THIS WAY
+                GameController controller = GameController.getInstance();
+                controller.stopTimer();
                 return true;
             }
             System.out.println("instancia pacmana");

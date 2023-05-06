@@ -32,7 +32,7 @@ public class Main extends Application {
 //
 //        maze.redraw();
 //
-        GameController controller = new GameController();
+        GameController controller = GameController.getInstance();
 //
 //        controller.setMaze(maze);
 
@@ -65,6 +65,32 @@ public class Main extends Application {
             try{
 
                 controller.loadMaze("data/map01.txt");
+
+                layout.setOnKeyPressed(controller);
+
+
+            } catch (FileNotFoundException e){
+                e.printStackTrace();
+            }
+        });
+
+        item2.setOnAction(actionEvent -> {
+            try{
+
+                controller.loadMaze("data/map02.txt");
+
+                layout.setOnKeyPressed(controller);
+
+
+            } catch (FileNotFoundException e){
+                e.printStackTrace();
+            }
+        });
+
+        item3.setOnAction(actionEvent -> {
+            try{
+
+                controller.loadMaze("data/map03.txt");
 
                 layout.setOnKeyPressed(controller);
 
