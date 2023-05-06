@@ -14,6 +14,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameController implements EventHandler<KeyEvent> {
+    enum Mode{
+        Play, Playback, Stopped
+    }
+
     //if the player wins or loses, game controller stops the timer
     boolean victory = false;
     boolean defeat = false;
@@ -24,6 +28,8 @@ public class GameController implements EventHandler<KeyEvent> {
     CommonMaze maze;
     MazeConfigure cfg = new MazeConfigure();
     Field.Direction direction = Field.Direction.R;
+
+    Mode mode = Mode.Stopped;
     private GameController(){
     }
     //singleton
@@ -57,6 +63,14 @@ public class GameController implements EventHandler<KeyEvent> {
     }
     public void stopTimer(){
         this.timer.cancel();
+    }
+
+    public Mode getMode() {
+        return mode;
+    }
+
+    public void setMode(Mode mode) {
+        this.mode = mode;
     }
 
     public void setMaze(CommonMaze maze) {

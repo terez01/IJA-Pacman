@@ -4,6 +4,7 @@ import ija.proj.pacman.common.Maze;
 import ija.proj.pacman.game.CommonMaze;
 import ija.proj.pacman.game.Logger;
 import ija.proj.pacman.game.MazeConfigure;
+import ija.proj.pacman.game.Playback;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -33,6 +34,8 @@ public class Main extends Application {
 //        maze.redraw();
 //
         GameController controller = GameController.getInstance();
+
+        Playback playBack = new Playback(controller.log);
 //
 //        controller.setMaze(maze);
 
@@ -51,8 +54,9 @@ public class Main extends Application {
         menu.getMenus().addAll(game, map, log);
 
         MenuItem playButton = new MenuItem("Play");
+        MenuItem playbackButton = new MenuItem("Playback");
 
-        game.getItems().add(playButton);
+        game.getItems().addAll(playButton, playbackButton);
 
         RadioMenuItem item1 = new RadioMenuItem("Map 1");
         RadioMenuItem item2 = new RadioMenuItem("Map 2");
@@ -63,9 +67,16 @@ public class Main extends Application {
 
         map.getItems().addAll(item1, item2, item3);
 
+        MenuItem startLogButton = new MenuItem("start");
+        MenuItem endLogButton = new MenuItem("end");
+        MenuItem nextLogButton = new MenuItem("next");
+        MenuItem previousLogButton = new MenuItem("previous");
+
+        log.getItems().addAll(startLogButton, endLogButton, nextLogButton, previousLogButton);
+
         item1.setOnAction(actionEvent -> {
             try{
-
+                controller.log.reset();
                 controller.loadMaze("data/map01.txt");
 
                 //layout.setOnKeyPressed(controller);
@@ -81,7 +92,7 @@ public class Main extends Application {
 
         item2.setOnAction(actionEvent -> {
             try{
-
+                controller.log.reset();
                 controller.loadMaze("data/map02.txt");
 
                 //layout.setOnKeyPressed(controller);
@@ -97,7 +108,7 @@ public class Main extends Application {
 
         item3.setOnAction(actionEvent -> {
             try{
-
+                controller.log.reset();
                 controller.loadMaze("data/map03.txt");
 
                 //layout.setOnKeyPressed(controller);
@@ -111,16 +122,63 @@ public class Main extends Application {
 
         });
 
+        startLogButton.setOnAction(actionEvent -> {
 
+            playBack.PlayFirst();
+
+        });
+
+        endLogButton.setOnAction(actionEvent -> {
+
+            playBack.PlayLast();
+
+        });
+
+        nextLogButton.setOnAction(actionEvent -> {
+
+            try {
+                playBack.PlayNext();
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
+
+        previousLogButton.setOnAction(actionEvent -> {
+
+            try {
+                playBack.PlayPrevious();
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
 
         playButton.setOnAction(actionEvent -> {
-            layout.setOnKeyPressed(controller);
-            controller.startTimer();
-            System.out.print("DING\n");
+            if (controller.getMode() != GameController.Mode.Play) {
+                controller.setMode(GameController.Mode.Play);
+                layout.setOnKeyPressed(controller);
+                controller.startTimer();
+                System.out.print("[DEBUG] Started play\n");
+            }
+        });
+
+        playbackButton.setOnAction(actionEvent -> {
+            if (controller.getMode() != GameController.Mode.Playback) {
+                controller.stopTimer();
+                controller.setMode(GameController.Mode.Playback);
+                try {
+                    playBack.init();
+                } catch (FileNotFoundException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.print("[DEBUG] Started Playback\n");
+            }
         });
 
         layout.setTop(menu);
         layout.setCenter(gameView);
+        //layout for playback buttons
         Scene scene = new Scene(layout, controller.maze.numRows()*gameView.cellSize , controller.maze.numCols()*gameView.cellSize + 25);
         stage.setTitle("Pac-Man");
         stage.setScene(scene);
