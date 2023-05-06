@@ -4,6 +4,7 @@ import ija.proj.pacman.common.Field;
 import ija.proj.pacman.game.CommonMaze;
 import ija.proj.pacman.game.Logger;
 import ija.proj.pacman.game.MazeConfigure;
+import ija.proj.pacman.game.PacmanObject;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -33,6 +34,12 @@ public class GameController implements EventHandler<KeyEvent> {
     Mode mode = Mode.Stopped;
     private GameController(){
     }
+
+    public void init(){
+        victory = false;
+        defeat = false;
+        mode = Mode.Stopped;
+    }
     //singleton
     public static GameController getInstance(){
         if (instance == null){
@@ -56,6 +63,7 @@ public class GameController implements EventHandler<KeyEvent> {
                         }
                         maze.redraw();
                         log.LogMap(maze);
+                        hurtCheck();
                     }
                 });
             }
@@ -119,7 +127,22 @@ public class GameController implements EventHandler<KeyEvent> {
                 break;
         }
     }
-    public void gameOverCheck(){
+
+    public void hurtCheck(){
+        int pacRow = maze.pacman.getRow();
+        int pacCol = maze.pacman.getCol();
+
+        for (int i = 0; i < maze.ghostList.size(); i++){
+            int ghostRow = maze.ghostList.get(i).getRow();
+            int ghostCol = maze.ghostList.get(i).getCol();
+            //if both pacman and ghost are on the same Field, hurt the pacman
+            if (ghostRow == pacRow && ghostCol == pacCol){
+                maze.pacman.hurt();
+                System.out.println("PACMAN IS HURTING SOOOOO MUCH");
+            }
+        }
+    }
+ public void gameOverCheck(){
         if (this.victory){
             stopTimer();
         }

@@ -76,13 +76,7 @@ public class Main extends Application {
 
         item1.setOnAction(actionEvent -> {
             try{
-                controller.log.reset();
-                controller.loadMaze("data/map01.txt");
-
-                //layout.setOnKeyPressed(controller);
-                gameView.createGrid(controller.maze.numRows(), controller.maze.numCols());
-
-                controller.maze.redraw();
+                changeMap("data/map01.txt");
 
             } catch (FileNotFoundException e){
                 e.printStackTrace();
@@ -92,14 +86,7 @@ public class Main extends Application {
 
         item2.setOnAction(actionEvent -> {
             try{
-                controller.log.reset();
-                controller.loadMaze("data/map02.txt");
-
-                //layout.setOnKeyPressed(controller);
-                gameView.createGrid(controller.maze.numRows(), controller.maze.numCols());
-
-                controller.maze.redraw();
-
+                changeMap("data/map02.txt");
             } catch (FileNotFoundException e){
                 e.printStackTrace();
             }
@@ -108,13 +95,7 @@ public class Main extends Application {
 
         item3.setOnAction(actionEvent -> {
             try{
-                controller.log.reset();
-                controller.loadMaze("data/map03.txt");
-
-                //layout.setOnKeyPressed(controller);
-                gameView.createGrid(controller.maze.numRows(), controller.maze.numCols());
-
-                controller.maze.redraw();
+                changeMap("data/map03.txt");
 
             } catch (FileNotFoundException e){
                 e.printStackTrace();
@@ -185,6 +166,19 @@ public class Main extends Application {
         stage.show();
         layout.requestFocus();
 
+    }
+
+    void changeMap(String mapfile) throws FileNotFoundException {
+        GameController.getInstance().setMode(GameController.Mode.Stopped);
+
+        GameController.getInstance().log.reset();
+        GameController.getInstance().loadMaze(mapfile);
+        GameController.getInstance().init();
+
+        //layout.setOnKeyPressed(controller);
+        GameView.getInstance().createGrid(GameController.getInstance().maze.numRows(), GameController.getInstance().maze.numCols());
+
+        GameController.getInstance().maze.redraw();
     }
 
     public static void main(String[] args) throws FileNotFoundException {
