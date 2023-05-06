@@ -20,7 +20,6 @@ public class GhostObject implements MazeObject{
         this.maze = maze;
         this.col = col;
         this.row = row;
-        this.ghostImage = new Image("file:lib/img/ghost_red.png");
     }
 
     @Override

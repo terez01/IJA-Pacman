@@ -7,6 +7,7 @@ package ija.proj.pacman.game;
 import ija.proj.pacman.common.Field;
 import ija.proj.pacman.common.Maze;
 import ija.proj.pacman.common.MazeObject;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.LinkedList;
 public class CommonMaze implements Maze {
     LinkedList<Field> fieldList;
     List<MazeObject> mazeObjectList;
-    public List<MazeObject> ghostList = new ArrayList<>();
+    public List<GhostObject> ghostList = new ArrayList<>();
 
     public PacmanObject pacman;
     KeyObject key;
@@ -58,6 +59,10 @@ public class CommonMaze implements Maze {
                 ghostList.add(newGhost);
                 newField.setMaze(this);
             }
+        }
+        for(int i = 0; i < ghostList.size(); i++){
+            String path = "file:lib/img/ghost" + String.valueOf(i) + ".png";
+            ghostList.get(i).ghostImage = new Image(path);
         }
         this.rows = rows;
         this.cols = cols;
