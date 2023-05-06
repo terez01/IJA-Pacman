@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import java.io.FileNotFoundException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,9 +22,8 @@ public class GameController implements EventHandler<KeyEvent> {
     MazeConfigure cfg = new MazeConfigure();
     Field.Direction direction = Field.Direction.R;
     public GameController(){
-        this.startTimer();
     }
-    private void startTimer() {
+    public void startTimer() {
         this.timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             public void run() {
@@ -43,6 +43,15 @@ public class GameController implements EventHandler<KeyEvent> {
 
     public void setMaze(CommonMaze maze) {
         this.maze = maze;
+    }
+
+    public void loadMaze(String path) throws FileNotFoundException {
+        maze = cfg.loadMazeFromFile("data/map01.txt");
+
+        /*first log*/
+        log.LogMap(maze);
+
+        maze.redraw();
     }
 
     @Override
@@ -73,7 +82,6 @@ public class GameController implements EventHandler<KeyEvent> {
                 }
                 break;
         }
-
-
     }
+
 }
