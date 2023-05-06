@@ -54,7 +54,7 @@ public class PacmanObject implements MazeObject {
                     //Game over - stop the timer
 
                     GameController controller = GameController.getInstance();
-                    controller.stopTimer();
+                    controller.gameLost();
                 }
             }
             nextField.put(this);

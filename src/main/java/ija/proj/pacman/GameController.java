@@ -14,7 +14,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class GameController implements EventHandler<KeyEvent> {
-
+    //if the player wins or loses, game controller stops the timer
+    boolean victory = false;
+    boolean defeat = false;
     private static GameController instance;
     Logger log = new Logger();
     private int frames = 200;
@@ -37,6 +39,9 @@ public class GameController implements EventHandler<KeyEvent> {
             public void run() {
                 Platform.runLater(new Runnable() {
                     public void run() {
+                        //checking if the game is still running on each tick
+                        gameOverCheck();
+
                         maze.pacman.move(direction);
                         maze.redraw();
                         //todo log differently... notify logger or something
@@ -97,6 +102,22 @@ public class GameController implements EventHandler<KeyEvent> {
                 }
                 break;
         }
+    }
+    public void gameOverCheck(){
+        if (this.victory){
+            stopTimer();
+        }
+        if (this. defeat){
+            stopTimer();
+        }
+    }
+
+    public void gameWon(){
+        this.victory = true;
+    }
+
+    public void gameLost(){
+        this.defeat = true;
     }
 
 }
