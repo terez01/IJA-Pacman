@@ -126,7 +126,7 @@ public class GameController extends Observable implements EventHandler<KeyEvent>
                 break;
             case SPACE:
             {
-                if(mode != Mode.Play){
+                if(mode != Mode.Play && mode != Mode.Playback){
                     log.reset();
                     try {
                         loadMaze(pathToMazeFile);
