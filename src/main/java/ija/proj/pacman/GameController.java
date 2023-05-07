@@ -1,10 +1,7 @@
 package ija.proj.pacman;
 
 import ija.proj.pacman.common.Field;
-import ija.proj.pacman.game.CommonMaze;
-import ija.proj.pacman.game.Logger;
-import ija.proj.pacman.game.MazeConfigure;
-import ija.proj.pacman.game.PacmanObject;
+import ija.proj.pacman.game.*;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -158,6 +155,19 @@ public class GameController extends Observable implements EventHandler<KeyEvent>
             if (ghostRow == pacRow && ghostCol == pacCol){
                 maze.pacman.hurt();
             }
+            Field pacField = maze.getField(pacRow,pacCol);
+            Field ghostField = maze.getField(ghostRow,ghostCol);
+            //if pacman is about to step on a field with ghost
+            if (pacField.nextField(maze.pacman.lastDirection) == ghostField){
+
+                GhostObject tmpGhost = maze.ghostList.get(i);
+
+                //and at the same time ghost is about to step on a field with pacman
+                if (ghostField.nextField(tmpGhost.lastDirection) == pacField){
+                    maze.pacman.hurt();
+                }
+            }
+
         }
     }
  public void gameOverCheck(){

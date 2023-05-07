@@ -21,6 +21,8 @@ public class PacmanObject extends Observable implements MazeObject {
     int col;
     Maze maze = null;
     Image pacmanImage;
+    public Field.Direction lastDirection = Field.Direction.D;
+
     boolean hasKey = false;
     public PacmanObject(Maze maze, int row, int col){
         this.lifeCnt = 3;
@@ -70,6 +72,7 @@ public class PacmanObject extends Observable implements MazeObject {
                     this.pacmanImage = new Image("file:lib/img/right.png");
                 }
             }
+            this.lastDirection = dir;
             return true;
         }else {
             return false;
