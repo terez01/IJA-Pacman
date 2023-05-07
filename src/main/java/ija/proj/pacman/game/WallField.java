@@ -1,6 +1,7 @@
 /**
  * IJA - PACMAN
  * author(s): xmager00, xhusar11
+ * WALL FIELD CLASS
  */
 package ija.proj.pacman.game;
 

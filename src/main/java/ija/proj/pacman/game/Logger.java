@@ -1,12 +1,11 @@
 /**
 * IJA - PACMAN
 * author(s): xmager00, xhusar11
+ * LOGGER CLASS
 */
 package ija.proj.pacman.game;
 
 import ija.proj.pacman.common.Maze;
-import ija.proj.pacman.game.CommonMaze;
-import ija.proj.pacman.game.MazeConfigure;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,7 +24,7 @@ public class  Logger {
 
     /**
      * Function logs the maze and its iteration number to the log.txt file
-     * @param maze
+     *
      */
     public void LogMap(Maze maze){
         iterationNum++;
@@ -159,8 +158,6 @@ public class  Logger {
 
     /**
      * Function gets the last iteration number, function returns zero if there is none
-     * @return
-     * @throws FileNotFoundException
      */
     public int LogGetLastIterNum() throws FileNotFoundException {
         int lastIterNum = 0;

@@ -1,3 +1,8 @@
+/**
+ * IJA - PACMAN
+ * author(s): xmager00, xhusar11
+ * PLAYBACK CLASS
+ */
 package ija.proj.pacman.game;
 
 import java.io.FileNotFoundException;

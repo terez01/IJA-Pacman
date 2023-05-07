@@ -1,6 +1,7 @@
 /**
  * IJA - PACMAN
  * author(s): xmager00, xhusar11
+ * FIELD - INTERFACE
  */
 package ija.proj.pacman.common;
 

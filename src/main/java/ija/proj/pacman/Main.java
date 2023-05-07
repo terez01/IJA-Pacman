@@ -1,21 +1,16 @@
-package ija.proj.pacman;
+/**
+ * IJA - PACMAN
+ * author(s): xmager00, xhusar11
+ * MAIN CLASS
+ */package ija.proj.pacman;
 
-import ija.proj.pacman.common.Maze;
-import ija.proj.pacman.game.CommonMaze;
-import ija.proj.pacman.game.Logger;
-import ija.proj.pacman.game.MazeConfigure;
 import ija.proj.pacman.game.Playback;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -60,8 +55,6 @@ public class Main extends Application {
         Button nextLogButton = new Button("next");
         Button previousLogButton = new Button("previous");
 
-//        log.getItems().addAll(startLogButton, endLogButton, nextLogButton, previousLogButton);
-        //observer to change labels
         Label labelPlay = new Label();
         Label labelLives = new Label("Lives: 3");
         labelLives.setFont(Font.font ("Verdana", 20));
@@ -82,7 +75,6 @@ public class Main extends Application {
         gameView.setPlaybackButtons(startLogButton, endLogButton, nextLogButton, previousLogButton);
         //hide playback buttons
         gameView.hidePlaybackButtons();
-
 
         item1.setOnAction(actionEvent -> {
             try{
@@ -196,13 +188,12 @@ public class Main extends Application {
         GameController.getInstance().loadMaze(mapfile);
         GameController.getInstance().init();
 
-        //layout.setOnKeyPressed(controller);
         GameView.getInstance().createGrid(GameController.getInstance().maze.numRows(), GameController.getInstance().maze.numCols());
 
         GameController.getInstance().maze.redraw();
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         launch();
     }
 

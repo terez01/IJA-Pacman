@@ -1,3 +1,8 @@
+/**
+ * IJA - PACMAN
+ * author(s): xmager00, xhusar11
+ * GAME VIEW CLASS
+ */
 package ija.proj.pacman;
 
 import ija.proj.pacman.game.Leaderboard;

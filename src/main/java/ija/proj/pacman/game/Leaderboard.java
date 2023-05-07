@@ -1,6 +1,9 @@
+/**
+ * IJA - PACMAN
+ * author(s): xmager00, xhusar11
+ * LEADERBOARD CLASS
+ */
 package ija.proj.pacman.game;
-
-import ija.proj.pacman.GameController;
 
 import java.io.FileWriter;
 import java.io.IOException;
