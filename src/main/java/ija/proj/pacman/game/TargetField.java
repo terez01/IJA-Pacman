@@ -35,15 +35,12 @@ public class TargetField implements Field {
     public boolean canMove(MazeObject movingObject) {
         if (movingObject instanceof PacmanObject){
             if (((PacmanObject) movingObject).hasKey){
-                System.out.println("pohol sa na target");
                 //STOPS THE TIMER - THE PLAYER WON THIS WAY
                 GameController controller = GameController.getInstance();
                 controller.gameWon();
                 return true;
             }
-            System.out.println("instancia pacmana");
         }
-        System.out.println("nevie sa pohnut");
         return false;
 
     }

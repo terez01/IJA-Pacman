@@ -177,9 +177,11 @@ public class GameController extends Observable implements EventHandler<KeyEvent>
  public void gameOverCheck(){
         if (this.victory){
             stopTimer();
+            notifyObservers();
         }
         if (this. defeat){
             stopTimer();
+            notifyObservers();
         }
 
     }
@@ -187,15 +189,13 @@ public class GameController extends Observable implements EventHandler<KeyEvent>
     public void gameWon(){
         this.victory = true;
         setMode(Mode.Stopped);
-        setChanged();
-        notifyObservers();
+
     }
 
     public void gameLost(){
         this.defeat = true;
         setMode(Mode.Stopped);
-        setChanged();
-        notifyObservers();
+
     }
 
 }

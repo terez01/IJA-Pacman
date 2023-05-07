@@ -8,10 +8,13 @@ package ija.proj.pacman;
 import ija.proj.pacman.game.Leaderboard;
 import ija.proj.pacman.game.PacmanObject;
 import javafx.scene.Group;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -93,7 +96,21 @@ public class GameView extends Group implements Observer {
             else if(((GameController) o).victory){
                 setLabelStatusText("Victory");
                 this.labelPlay.setText("Press SPACE to play again");
-                leaderboard.getScore(((GameController) o).maze.pacman.stepCnt);
+//                leaderboard.getScore(((GameController) o).maze.pacman.stepCnt);
+                try {
+                    leaderboard.setScoreNew(((GameController) o).maze.pacman.stepCnt, "data/leaderboard.txt");
+                    List scoreListOut = leaderboard.getTopScores("data/leaderboard.txt", 5);
+                    String message = String.join("\n", scoreListOut);
+                    Alert alert = new Alert(Alert.AlertType.NONE);
+                    alert.getDialogPane().getButtonTypes().add(ButtonType.OK);
+                    alert.setTitle("Leaderboard Top 5");
+                    alert.setHeaderText("Pacman moved "+ String.valueOf(((GameController) o).maze.pacman.stepCnt)+" steps");
+                    alert.setContentText(message);
+
+                    alert.showAndWait();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
             else if(((GameController) o).mode == GameController.Mode.Play){
                 setLabelStatusText(String.valueOf(((GameController) o).maze.pacman.stepCnt));
