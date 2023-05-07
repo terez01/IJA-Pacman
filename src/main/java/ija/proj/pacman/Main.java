@@ -60,6 +60,7 @@ public class Main extends Application {
         Button nextLogButton = new Button("next");
         Button previousLogButton = new Button("previous");
 
+        log.getItems().addAll(startLogButton, endLogButton, nextLogButton, previousLogButton);
         //observer to change labels
         Label labelPlay = new Label();
         Label labelLives = new Label("Lives: 3");
@@ -86,6 +87,7 @@ public class Main extends Application {
         item1.setOnAction(actionEvent -> {
             try{
                 changeMap("data/map01.txt");
+
 
             } catch (FileNotFoundException e){
                 e.printStackTrace();
@@ -194,6 +196,7 @@ public class Main extends Application {
         GameController.getInstance().loadMaze(mapfile);
         GameController.getInstance().init();
 
+        //layout.setOnKeyPressed(controller);
         GameView.getInstance().createGrid(GameController.getInstance().maze.numRows(), GameController.getInstance().maze.numCols());
 
         GameController.getInstance().maze.redraw();
