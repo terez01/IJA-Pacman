@@ -57,15 +57,16 @@ public class Main extends Application {
 
         Label labelPlay = new Label();
         Label labelLives = new Label("Lives: 3");
-        labelLives.setFont(Font.font ("Verdana", 20));
+        labelLives.setFont(Font.font ("Verdana", 15));
         Label labelStatus = new Label();
-        labelStatus.setFont(Font.font ("Verdana", 20));
+        labelStatus.setFont(Font.font ("Verdana", 15));
         gameView.setLabelLives(labelLives);
         gameView.setLabelStatus(labelStatus);
+        gameView.setLabelPlay(labelPlay);
 
         HBox bottom = new HBox();
-        bottom.getChildren().addAll(labelLives, labelStatus);
-        gameView.setLabelPlay(labelPlay);
+        bottom.getChildren().addAll(labelLives, labelStatus, labelPlay);
+
 
         bottom.setAlignment(Pos.BOTTOM_CENTER);
         bottom.setSpacing(10);
