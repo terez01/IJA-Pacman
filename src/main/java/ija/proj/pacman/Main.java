@@ -23,15 +23,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Main extends Application {
-//    Maze maze;
-//Logger log = new Logger();
     @Override
     public void start(Stage stage) throws IOException {
         GameView gameView = GameView.getInstance();
         GameController controller = GameController.getInstance();
         Playback playBack = new Playback(controller.log);
-//
-//        controller.setMaze(maze);
 
         controller.loadMaze("data/map01.txt");
         controller.pathToMazeFile = "data/map01.txt";
@@ -39,12 +35,9 @@ public class Main extends Application {
         controller.maze.redraw();
         BorderPane layout = new BorderPane();
 
-//        layout.setOnKeyPressed(controller);
-
         MenuBar menu = new MenuBar();
         Menu game = new Menu("Game");
         Menu map = new Menu("Maps");
-//        Menu log = new Menu("Playback");
 
         menu.getMenus().addAll(game, map);
 
@@ -79,8 +72,6 @@ public class Main extends Application {
         HBox bottom = new HBox();
         bottom.getChildren().addAll(labelLives, labelStatus);
         gameView.setLabelPlay(labelPlay);
-        VBox bottom = new VBox();
-
 
         bottom.setAlignment(Pos.BOTTOM_CENTER);
         bottom.setSpacing(10);
@@ -203,7 +194,6 @@ public class Main extends Application {
         GameController.getInstance().loadMaze(mapfile);
         GameController.getInstance().init();
 
-        //layout.setOnKeyPressed(controller);
         GameView.getInstance().createGrid(GameController.getInstance().maze.numRows(), GameController.getInstance().maze.numCols());
 
         GameController.getInstance().maze.redraw();

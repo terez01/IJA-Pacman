@@ -18,7 +18,7 @@ public class GameView extends Group implements Observer {
     private int mapWidth;
     private Label labelLives, labelStatus, labelPlay;
 
-    private Label labelLives, labelStatus;
+//    private Label labelLives, labelStatus;
     private Button startButton, endButton, nextButton, previousButton;
     private GameView(){
 
@@ -96,9 +96,13 @@ public class GameView extends Group implements Observer {
     }
     public void setPlaybackButtons(Button startButton, Button endButton, Button nextButton, Button previousButton){
         this.startButton = startButton;
+        this.startButton.setFocusTraversable(false);
         this.endButton = endButton;
+        this.endButton.setFocusTraversable(false);
         this.nextButton = nextButton;
+        this.nextButton.setFocusTraversable(false);
         this.previousButton = previousButton;
+        this.previousButton.setFocusTraversable(false);
 
     }
     public void showPlaybackButtons(){
