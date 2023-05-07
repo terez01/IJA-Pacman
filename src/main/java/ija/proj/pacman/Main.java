@@ -60,7 +60,7 @@ public class Main extends Application {
         Button nextLogButton = new Button("next");
         Button previousLogButton = new Button("previous");
 
-        log.getItems().addAll(startLogButton, endLogButton, nextLogButton, previousLogButton);
+//        log.getItems().addAll(startLogButton, endLogButton, nextLogButton, previousLogButton);
         //observer to change labels
         Label labelPlay = new Label();
         Label labelLives = new Label("Lives: 3");
