@@ -16,6 +16,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -33,6 +34,7 @@ public class Main extends Application {
 //        controller.setMaze(maze);
 
         controller.loadMaze("data/map01.txt");
+        controller.pathToMazeFile = "data/map01.txt";
         gameView.createGrid(controller.maze.numRows(), controller.maze.numCols());
         controller.maze.redraw();
         BorderPane layout = new BorderPane();
@@ -66,13 +68,19 @@ public class Main extends Application {
         Button previousLogButton = new Button("previous");
 
         //observer to change labels
-        Label label = new Label("Lives: 3");
+        Label labelPlay = new Label();
+        Label labelLives = new Label("Lives: 3");
+        labelLives.setFont(Font.font ("Verdana", 20));
         Label labelStatus = new Label();
-        gameView.setLabelLives(label);
+        labelStatus.setFont(Font.font ("Verdana", 20));
+        gameView.setLabelLives(labelLives);
         gameView.setLabelStatus(labelStatus);
 
         HBox bottom = new HBox();
-        bottom.getChildren().addAll(label, labelStatus);
+        bottom.getChildren().addAll(labelLives, labelStatus);
+        gameView.setLabelPlay(labelPlay);
+        VBox bottom = new VBox();
+
 
         bottom.setAlignment(Pos.BOTTOM_CENTER);
         bottom.setSpacing(10);
@@ -97,6 +105,7 @@ public class Main extends Application {
         item2.setOnAction(actionEvent -> {
             try{
                 changeMap("data/map02.txt");
+                controller.pathToMazeFile = "data/map02.txt";
             } catch (FileNotFoundException e){
                 e.printStackTrace();
             }
@@ -106,6 +115,7 @@ public class Main extends Application {
         item3.setOnAction(actionEvent -> {
             try{
                 changeMap("data/map03.txt");
+                controller.pathToMazeFile = "data/map03.txt";
 
             } catch (FileNotFoundException e){
                 e.printStackTrace();

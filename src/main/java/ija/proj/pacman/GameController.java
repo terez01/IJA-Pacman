@@ -26,6 +26,7 @@ public class GameController extends Observable implements EventHandler<KeyEvent>
     private int frames = 250;
     Timer timer;
     CommonMaze maze;
+    String pathToMazeFile;
     MazeConfigure cfg = new MazeConfigure();
     Field.Direction direction = Field.Direction.R;
 
@@ -121,6 +122,23 @@ public class GameController extends Observable implements EventHandler<KeyEvent>
                     direction = Field.Direction.R;
                 }
                 break;
+            case SPACE:
+            {
+                if(mode != Mode.Play){
+                    log.reset();
+                    try {
+                        loadMaze(pathToMazeFile);
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    }
+                    init();
+                    GameView.getInstance().createGrid(maze.numRows(), maze.numCols());
+                    maze.redraw();
+                    setMode(Mode.Play);
+                    startTimer();
+                }
+                break;
+            }
         }
     }
 
@@ -134,7 +152,6 @@ public class GameController extends Observable implements EventHandler<KeyEvent>
             //if both pacman and ghost are on the same Field, hurt the pacman
             if (ghostRow == pacRow && ghostCol == pacCol){
                 maze.pacman.hurt();
-                System.out.println("PACMAN IS HURTING SOOOOO MUCH");
             }
         }
     }
@@ -150,12 +167,14 @@ public class GameController extends Observable implements EventHandler<KeyEvent>
 
     public void gameWon(){
         this.victory = true;
+        setMode(Mode.Stopped);
         setChanged();
         notifyObservers();
     }
 
     public void gameLost(){
         this.defeat = true;
+        setMode(Mode.Stopped);
         setChanged();
         notifyObservers();
     }
