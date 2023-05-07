@@ -87,11 +87,6 @@ public class GameView extends Group implements Observer {
             if(((GameController) o).defeat){
                 setLabelStatusText("Game Over");
                 this.labelPlay.setText("Press SPACE to play again");
-                Alert alert = new Alert(Alert.AlertType.NONE);
-                alert.getDialogPane().getButtonTypes().add(ButtonType.OK);
-                alert.setTitle(null);
-                alert.setHeaderText("Pacman moved "+ String.valueOf(((GameController) o).maze.pacman.stepCnt)+" steps");
-                alert.showAndWait();
             }
             else if(((GameController) o).victory){
                 setLabelStatusText("Victory");

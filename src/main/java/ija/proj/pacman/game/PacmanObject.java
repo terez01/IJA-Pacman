@@ -48,7 +48,6 @@ public class PacmanObject extends Observable implements MazeObject {
             //Key grabbing logic
             if (nextField.get() instanceof KeyObject){
                 hasKey = true;
-                System.out.println("Pacman took the key");
                 //remove the grabbed key
                 nextField.remove(nextField.get());
             }

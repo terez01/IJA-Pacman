@@ -34,7 +34,6 @@ public class Leaderboard {
         Collections.sort(scores);
         FileWriter fw = new FileWriter(scorePath, false);
         for (Integer s : scores) {
-            System.out.println(s);
             fw.write(s + "\n");
         }
         fw.close();
@@ -63,9 +62,7 @@ public class Leaderboard {
             throw new RuntimeException(e);
         }
         ArrayList tmpList = new ArrayList<>(scoreList);
-//        for(int i = 0; i < tmpList.size(); i++){
-//            System.out.print(tmpList.get(i));
-//        }
+
         Collections.sort(tmpList, Collections.reverseOrder());
         saveScore(tmpList);
     }

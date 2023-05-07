@@ -153,7 +153,6 @@ public class Main extends Application {
                 controller.setMode(GameController.Mode.Play);
                 layout.setOnKeyPressed(controller);
                 controller.startTimer();
-                System.out.print("[DEBUG] Started play\n");
 
                 //changing the visibility of the buttons
                 gameView.hidePlaybackButtons();
@@ -174,7 +173,6 @@ public class Main extends Application {
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);
                 }
-                System.out.print("[DEBUG] Started Playback\n");
             }
         });
 
