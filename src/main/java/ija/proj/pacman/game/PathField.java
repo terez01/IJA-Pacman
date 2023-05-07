@@ -30,11 +30,6 @@ public class PathField implements Field {
     }
     @Override
     public MazeObject get() {
-//        if (mazeObject instanceof PacmanObject) {
-//            return (PacmanObject) mazeObject;
-//        }else{
-//            return null;
-//        }
         return mazeObject;
     }
 

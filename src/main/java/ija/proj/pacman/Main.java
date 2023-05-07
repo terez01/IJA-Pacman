@@ -8,6 +8,7 @@ import ija.proj.pacman.game.Playback;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -41,9 +42,9 @@ public class Main extends Application {
         MenuBar menu = new MenuBar();
         Menu game = new Menu("Game");
         Menu map = new Menu("Maps");
-        Menu log = new Menu("Playback");
+//        Menu log = new Menu("Playback");
 
-        menu.getMenus().addAll(game, map, log);
+        menu.getMenus().addAll(game, map);
 
         MenuItem playButton = new MenuItem("Play");
         MenuItem playbackButton = new MenuItem("Playback");
@@ -59,20 +60,29 @@ public class Main extends Application {
 
         map.getItems().addAll(item1, item2, item3);
 
-        MenuItem startLogButton = new MenuItem("start");
-        MenuItem endLogButton = new MenuItem("end");
-        MenuItem nextLogButton = new MenuItem("next");
-        MenuItem previousLogButton = new MenuItem("previous");
+        Button startLogButton = new Button("start");
+        Button endLogButton = new Button("end");
+        Button nextLogButton = new Button("next");
+        Button previousLogButton = new Button("previous");
 
-        log.getItems().addAll(startLogButton, endLogButton, nextLogButton, previousLogButton);
         //observer to change labels
         Label label = new Label("Lives: 3");
         Label labelStatus = new Label();
         gameView.setLabelLives(label);
         gameView.setLabelStatus(labelStatus);
 
-        VBox bottom = new VBox();
+        HBox bottom = new HBox();
         bottom.getChildren().addAll(label, labelStatus);
+
+        bottom.setAlignment(Pos.BOTTOM_CENTER);
+        bottom.setSpacing(10);
+        bottom.getChildren().addAll(startLogButton, endLogButton, nextLogButton, previousLogButton);
+
+        //give the buttons to the game view
+        gameView.setPlaybackButtons(startLogButton, endLogButton, nextLogButton, previousLogButton);
+        //hide playback buttons
+        gameView.hidePlaybackButtons();
+
 
         item1.setOnAction(actionEvent -> {
             try{
@@ -141,6 +151,10 @@ public class Main extends Application {
                 layout.setOnKeyPressed(controller);
                 controller.startTimer();
                 System.out.print("[DEBUG] Started play\n");
+
+                //changing the visibility of the buttons
+                gameView.hidePlaybackButtons();
+
             }
         });
 
@@ -150,6 +164,10 @@ public class Main extends Application {
                 controller.setMode(GameController.Mode.Playback);
                 try {
                     playBack.init();
+
+                    //changing the visibility of the buttons
+                    gameView.showPlaybackButtons();
+
                 } catch (FileNotFoundException e) {
                     throw new RuntimeException(e);
                 }

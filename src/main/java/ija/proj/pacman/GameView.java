@@ -2,6 +2,7 @@ package ija.proj.pacman;
 
 import ija.proj.pacman.game.PacmanObject;
 import javafx.scene.Group;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
@@ -16,7 +17,7 @@ public class GameView extends Group implements Observer {
     public int cellSize = 30;
     private int mapWidth;
     private Label labelLives, labelStatus;
-
+    private Button startButton, endButton, nextButton, previousButton;
     private GameView(){
 
     }
@@ -84,5 +85,24 @@ public class GameView extends Group implements Observer {
                 setLabelLivesText(3);
             }
         }
+    }
+    public void setPlaybackButtons(Button startButton, Button endButton, Button nextButton, Button previousButton){
+        this.startButton = startButton;
+        this.endButton = endButton;
+        this.nextButton = nextButton;
+        this.previousButton = previousButton;
+
+    }
+    public void showPlaybackButtons(){
+        this.startButton.setVisible(true);
+        this.endButton.setVisible(true);
+        this.nextButton.setVisible(true);
+        this.previousButton.setVisible(true);
+    }
+    public void hidePlaybackButtons(){
+        this.startButton.setVisible(false);
+        this.endButton.setVisible(false);
+        this.nextButton.setVisible(false);
+        this.previousButton.setVisible(false);
     }
 }
