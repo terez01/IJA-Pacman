@@ -25,12 +25,12 @@ public class GameController extends Observable implements EventHandler<KeyEvent>
     Logger log = new Logger();
     private int frames = 250;
     Timer timer;
-    CommonMaze maze;
+    public CommonMaze maze;
     String pathToMazeFile;
     MazeConfigure cfg = new MazeConfigure();
     Field.Direction direction = Field.Direction.R;
-
     Mode mode = Mode.Stopped;
+
     private GameController(){
         this.addObserver(GameView.getInstance());
     }
@@ -50,6 +50,7 @@ public class GameController extends Observable implements EventHandler<KeyEvent>
         return instance;
     }
     public void startTimer() {
+        maze.pacman.stepCnt = 0;
         this.timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             public void run() {
@@ -58,7 +59,11 @@ public class GameController extends Observable implements EventHandler<KeyEvent>
                         //checking if the game is still running on each tick
                         gameOverCheck();
 
-                        maze.pacman.move(direction);
+                        if(maze.pacman.move(direction)){
+                            maze.pacman.stepCnt++;
+                            setChanged();
+                            notifyObservers();
+                        }
                         for(int i = 0; i < maze.ghostList.size(); i++){
                             maze.ghostList.get(i).move(maze.ghostList.get(i).lastDirection);
                         }

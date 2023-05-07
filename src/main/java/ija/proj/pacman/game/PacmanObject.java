@@ -16,6 +16,7 @@ import java.util.Observable;
 
 public class PacmanObject extends Observable implements MazeObject {
     public int lifeCnt;
+    public int stepCnt = 0;
     int row;
     int col;
     Maze maze = null;

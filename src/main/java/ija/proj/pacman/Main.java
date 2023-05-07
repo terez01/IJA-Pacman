@@ -77,7 +77,7 @@ public class Main extends Application {
         gameView.setLabelStatus(labelStatus);
         gameView.setLabelPlay(labelPlay);
         VBox bottom = new VBox();
-
+        bottom.getChildren().addAll(labelPlay, labelLives, labelStatus);
 
         item1.setOnAction(actionEvent -> {
             try{

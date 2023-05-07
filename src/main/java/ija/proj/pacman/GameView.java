@@ -1,5 +1,6 @@
 package ija.proj.pacman;
 
+import ija.proj.pacman.game.Leaderboard;
 import ija.proj.pacman.game.PacmanObject;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
@@ -12,6 +13,7 @@ import java.util.Observer;
 
 public class GameView extends Group implements Observer {
     private static GameView instance;
+    private Leaderboard leaderboard = new Leaderboard();
     private List<ImageView> gridCells = new ArrayList<>();
     public int cellSize = 30;
     private int mapWidth;
@@ -83,6 +85,10 @@ public class GameView extends Group implements Observer {
             else if(((GameController) o).victory){
                 setLabelStatusText("Victory");
                 this.labelPlay.setText("Press SPACE to play again");
+                leaderboard.getScore(((GameController) o).maze.pacman.stepCnt);
+            }
+            else if(((GameController) o).mode == GameController.Mode.Play){
+                setLabelStatusText(String.valueOf(((GameController) o).maze.pacman.stepCnt));
             }
             else{
                 setLabelStatusText("");

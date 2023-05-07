@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Logger {
+public class  Logger {
 
     public void reset(){
         iterationNum = 0;
