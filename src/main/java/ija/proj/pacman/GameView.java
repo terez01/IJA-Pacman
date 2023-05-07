@@ -15,7 +15,7 @@ public class GameView extends Group implements Observer {
     private List<ImageView> gridCells = new ArrayList<>();
     public int cellSize = 30;
     private int mapWidth;
-    private Label labelLives, labelStatus;
+    private Label labelLives, labelStatus, labelPlay;
 
     private GameView(){
 
@@ -55,6 +55,9 @@ public class GameView extends Group implements Observer {
     public void setLabelStatus(Label labelStatus) {
         this.labelStatus = labelStatus;
     }
+    public void setLabelPlay(Label labelPlay) {
+        this.labelPlay = labelPlay;
+    }
 
     public void setLabelLivesText(int lives){
         if(lives < 0){
@@ -75,12 +78,15 @@ public class GameView extends Group implements Observer {
         if (o instanceof GameController){
             if(((GameController) o).defeat){
                 setLabelStatusText("Game Over");
+                this.labelPlay.setText("Press SPACE to play again");
             }
             else if(((GameController) o).victory){
                 setLabelStatusText("Victory");
+                this.labelPlay.setText("Press SPACE to play again");
             }
             else{
                 setLabelStatusText("");
+                this.labelPlay.setText("");
                 setLabelLivesText(3);
             }
         }
